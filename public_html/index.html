@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXIVO | Next-Generation Biometric Security</title>
+    <style>
+        :root {
+            --bg-dark: #09090b; 
+            --text-light: #f4f4f5;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --card-dark: #18181b;
+            --border-subtle: #27272a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5vw;
+            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        /* Özel TEKMER Butonu */
+        .btn-tekmer {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green) !important;
+            border: 1px solid var(--accent-green);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            animation: pulse-border 2s infinite;
+        }
+
+        .btn-tekmer:hover {
+            background: var(--accent-green);
+            color: #000 !important;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, #18181b 0%, #09090b 100%);
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #a1a1aa;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* TEKMER Call to Action Kutusu */
+        .tekmer-box {
+            background: var(--card-dark);
+            border: 1px solid var(--accent-purple);
+            padding: 3rem;
+            border-radius: 16px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tekmer-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-green));
+        }
+
+        .tekmer-box h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--text-light);
+            color: var(--bg-dark);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">NEXIVO</a>
+        <div class="nav-links">
+            <a href="#">Teknoloji</a>
+            <a href="#">Vizyon</a>
+            <a href="mailto:destek@nexivotr.com">İletişim</a>
+            <!-- Bu buton doğrudan sunuma gidecek -->
+            <a href="tekmer.html" class="btn-tekmer">▶ TWINnovation Pitch</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Impossible to Spoof.</h1>
+        <p>Biyometrik güvenlikte yeni standart: "Sıfır Güven" mimarisiyle tasarlanmış, deri altı damar haritalama teknolojisi.</p>
+        
+        <div class="tekmer-box">
+            <div style="color: var(--accent-purple); font-weight: bold; margin-bottom: 1rem; letter-spacing: 2px;">ÖZEL SUNUM</div>
+            <h2>MEXT TWINnovation Challenge</h2>
+            <p style="color: #a1a1aa; font-size: 1.1rem; margin-bottom: 2rem;">
+                Ankara TEKMER Demo Day için hazırladığımız, NEXIVO'nun mimarisini ve Dinamik CVV teknolojisini detaylandıran interaktif sunumumuzu inceleyin.
+            </p>
+            <!-- Dosyanın adı tekmer.html olacak -->
+            <a href="tekmer.html" class="btn-primary">İnteraktif Sunumu Başlat</a>
+        </div>
+    </section>
+
+
+<script id="dualite-canvas-overlay-v1">
+
+(function() {
+  if (window.__canvasOverlayInit) return;
+  window.__canvasOverlayInit = true;
+
+  try {
+
+  var enabled = false;
+  let hoveredEl = null;
+  let selectedEl = null;
+
+  function getSelector(el) {
+    if (el.id) return '#' + el.id;
+    let path = [];
+    while (el && el !== document.body && el !== document.documentElement) {
+      let tag = el.tagName.toLowerCase();
+      let sibling = el;
+      let nth = 1;
+      while (sibling.previousElementSibling) {
+        sibling = sibling.previousElementSibling;
+        if (sibling.tagName === el.tagName) nth++;
+      }
+      path.unshift(nth > 1 ? tag + ':nth-of-type(' + nth + ')' : tag);
+      el = el.parentElement;
+    }
+    return path.join(' > ');
+  }
+
+  function getRect(el) {
+    const r = el.getBoundingClientRect();
+    return { top: r.top, left: r.left, width: r.width, height: r.height };
+  }
+
+  function getComputedProps(el) {
+    var cs = window.getComputedStyle(el);
+    return {
+      tagName: el.tagName.toLowerCase(),
+      id: el.id || '',
+      className: (typeof el.className === 'string') ? el.className : '',
+      textContent: (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) ? (el.textContent || '').slice(0, 80) : '',
+      fontSize: cs.fontSize,
+      fontWeight: cs.fontWeight,
+      fontFamily: cs.fontFamily,
+      color: cs.color,
+      backgroundColor: cs.backgroundColor,
+      opacity: cs.opacity,
+      textAlign: cs.textAlign,
+      padding: cs.padding,
+      margin: cs.margin,
+      borderRadius: cs.borderRadius,
+      borderWidth: cs.borderWidth,
+      borderColor: cs.borderColor,
+      width: cs.width,
+      height: cs.height,
+      display: cs.display,
+    };
+  }
+
+  function parseDataDs(ds) {
+    var parts = ds.split(':');
+    if (parts.length < 3) return null;
+    var col = parseInt(parts[parts.length - 1], 10);
+    var line = parseInt(parts[parts.length - 2], 10);
+    var filePath = parts.slice(0, parts.length - 2).join(':');
+    if (!filePath || isNaN(line)) return null;
+    return { sourceFilePath: filePath, sourceLine: line, sourceColumn: isNaN(col) ? null : col };
+  }
+
+  function getDebugSource(el) {
+    var node = el;
+    while (node && node !== document.documentElement) {
+      if (node.getAttribute) {
+        var ds = node.getAttribute('data-ds');
+        if (ds) {
+          var parsed = parseDataDs(ds);
+          if (parsed) return parsed;
+        }
+      }
+      node = node.parentElement;
+    }
+
+    var workDir = '/home/project/';
+    function strip(f) {
+      if (!f) return '';
+      return f.startsWith(workDir) ? f.slice(workDir.length) : f;
+    }
+
+    try {
+      var vNode = el;
+      while (vNode && vNode !== document.documentElement) {
+        var vc = vNode.__vueParentComponent;
+        if (vc && vc.type && vc.type.__file) {
+          return { sourceFilePath: strip(vc.type.__file), sourceLine: null, sourceColumn: null };
+        }
+        vNode = vNode.parentElement;
+      }
+    } catch (err) {
+      console.warn('[canvas-overlay] Vue fallback error:', err);
+    }
+
+    return null;
+  }
+
+  function clearOverlayState() {
+    hoveredEl = null;
+    selectedEl = null;
+    window.parent.postMessage({ type: 'canvas-hover-clear' }, '*');
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    if (!enabled) return;
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    if (!el || el === hoveredEl) return;
+    hoveredEl = el;
+    window.parent.postMessage({
+      type: 'canvas-hover',
+      rect: getRect(el),
+      selector: getSelector(el),
+    }, '*');
+  }, true);
+
+  document.addEventListener('click', function(e) {
+    if (!enabled) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    if (!el) return;
+    selectedEl = el;
+    var source = getDebugSource(el);
+    window.parent.postMessage({
+      type: 'canvas-select',
+      rect: getRect(el),
+      selector: getSelector(el),
+      props: getComputedProps(el),
+      source: source,
+    }, '*');
+  }, true);
+
+  var syncSelectRaf = 0;
+  function postSelectedRectIfAny() {
+    if (!selectedEl) return;
+    if (!selectedEl.isConnected) {
+      selectedEl = null;
+      return;
+    }
+    window.parent.postMessage({
+      type: 'canvas-select-rect',
+      rect: getRect(selectedEl),
+    }, '*');
+  }
+  function scheduleSelectedRectSync() {
+    if (!enabled) return;
+    if (!selectedEl) return;
+    if (syncSelectRaf) return;
+    syncSelectRaf = requestAnimationFrame(function() {
+      syncSelectRaf = 0;
+      postSelectedRectIfAny();
+    });
+  }
+  window.addEventListener('scroll', scheduleSelectedRectSync, true);
+  window.addEventListener('resize', scheduleSelectedRectSync);
+
+  document.addEventListener('mouseleave', function() {
+    if (!enabled) return;
+    hoveredEl = null;
+    window.parent.postMessage({ type: 'canvas-hover-clear' }, '*');
+  });
+
+  window.addEventListener('message', function(e) {
+    if (e.source !== window.parent) return;
+    if (!e.data) return;
+    if (e.data.type === 'canvas-enable') {
+      enabled = true;
+    } else if (e.data.type === 'canvas-disable') {
+      enabled = false;
+      clearOverlayState();
+    } else if (e.data.type === 'canvas-deselect') {
+      selectedEl = null;
+    }
+  });
+
+  window.parent.postMessage({ type: 'canvas-overlay-ready' }, '*');
+
+  } catch (err) {
+    window.parent.postMessage({ type: 'canvas-overlay-error', message: String(err) }, '*');
+  }
+})();
+
+</script>
+</body>
+</html>
