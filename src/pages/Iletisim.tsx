@@ -1,7 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Globe, MapPin } from 'lucide-react';
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export default function Iletisim() {
+  const [formData, setFormData] = useState<FormData>({ name: '', email: '', subject: '', message: '' });
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Kullanıcı yazmaya başladığında hatayı temizle
+    if (errors[e.target.name as keyof FormData]) {
+      setErrors({ ...errors, [e.target.name]: '' });
+    }
+  };
+
+  const validate = () => {
+    const newErrors: Partial<FormData> = {};
+    if (!formData.name.trim()) newErrors.name = 'Ad alanı zorunludur.';
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'E-posta alanı zorunludur.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Geçerli bir e-posta adresi giriniz.';
+    }
+    
+    if (!formData.subject.trim()) newErrors.subject = 'Konu alanı zorunludur.';
+    if (!formData.message.trim()) newErrors.message = 'Mesaj alanı zorunludur.';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (validate()) {
+      // mailto linkini oluştur
+      const mailtoLink = `mailto:destek@nexivotr.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Ad: ${formData.name}\nMesaj:\n${formData.message}`)}`;
+      
+      // E-posta uygulamasını aç
+      window.location.href = mailtoLink;
+      
+      // Başarı durumunu göster ve formu temizle
+      setIsSuccess(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // 5 saniye sonra başarı mesajını gizle
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 5000);
+    }
+  };
+
   return (
     <div className="min-h-screen pt-[120px] pb-20 px-6 md:px-[5vw] bg-bg-dark">
       <div className="max-w-5xl mx-auto">
@@ -44,41 +101,75 @@ export default function Iletisim() {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-1">Konum</h3>
                 <p className="text-[#a1a1aa]">
-                  Ankara TEKMER<br />
-                  Türkiye
+                  Türkiye, Ankara
                 </p>
               </div>
             </div>
           </div>
 
-          {/* İletişim Formu (Görsel amaçlı) */}
+          {/* İletişim Formu */}
           <div className="bg-card-dark p-8 rounded-2xl border border-border-subtle">
             <h3 className="text-2xl font-bold text-white mb-6">Bize Yazın</h3>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              
+              {isSuccess && (
+                <div className="bg-accent-green/10 border border-accent-green text-accent-green px-4 py-3 rounded-lg mb-4 font-medium">
+                  Mesajınız başarıyla gönderildi, e-posta uygulamanız açılıyor...
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium text-[#a1a1aa] mb-2">Adınız Soyadınız</label>
                 <input 
                   type="text" 
-                  className="w-full bg-bg-dark border border-border-subtle rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={`w-full bg-bg-dark border ${errors.name ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors`}
                   placeholder="Adınız"
                 />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
+              
               <div>
                 <label className="block text-sm font-medium text-[#a1a1aa] mb-2">E-posta Adresiniz</label>
                 <input 
                   type="email" 
-                  className="w-full bg-bg-dark border border-border-subtle rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full bg-bg-dark border ${errors.email ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors`}
                   placeholder="ornek@sirket.com"
                 />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
+
+              <div>
+                <label className="block text-sm font-medium text-[#a1a1aa] mb-2">Konu</label>
+                <input 
+                  type="text" 
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className={`w-full bg-bg-dark border ${errors.subject ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors`}
+                  placeholder="Mesajınızın konusu"
+                />
+                {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-[#a1a1aa] mb-2">Mesajınız</label>
                 <textarea 
                   rows={4}
-                  className="w-full bg-bg-dark border border-border-subtle rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors resize-none"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className={`w-full bg-bg-dark border ${errors.message ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors resize-none`}
                   placeholder="Size nasıl yardımcı olabiliriz?"
                 ></textarea>
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
+              
               <button 
                 type="submit"
                 className="w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors mt-2"
