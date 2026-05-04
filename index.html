@@ -56,7 +56,60 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    body { background-color: #09090b; color: #f4f4f5; margin: 0; overflow-x: hidden; }
+    :root { color-scheme: dark; background: #03070b; }
+    body { background-color: #03070b; color: #f4f4f5; margin: 0; overflow-x: hidden; }
+    .nexivo-hero { position: relative; min-height: 100vh; overflow: hidden; display: grid; place-items: center; padding: 96px 24px 48px; isolation: isolate; background: radial-gradient(circle at 50% 64%, rgba(17,185,169,.2), transparent 18%), radial-gradient(circle at 32% 50%, rgba(46,111,255,.16), transparent 28%), linear-gradient(105deg, rgba(255,255,255,.13), transparent 19%, transparent 64%, rgba(13,199,205,.06)), #03070b; }
+    .nexivo-hero::before, .nexivo-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+    .nexivo-hero::before { background: repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 118px), radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,.72) 100%); opacity: .55; }
+    .nexivo-hero::after { background: linear-gradient(90deg, rgba(255,255,255,.08), transparent 22%), linear-gradient(180deg, rgba(255,255,255,.08), transparent 24%); mix-blend-mode: screen; opacity: .38; }
+    .hero-ambient { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at 50% 72%, rgba(53,255,213,.2), transparent 23%), radial-gradient(ellipse at 62% 46%, rgba(45,118,255,.16), transparent 22%), linear-gradient(180deg, rgba(255,255,255,.06), transparent 42%); filter: blur(18px); opacity: .72; animation: ambient-breathe 8s ease-in-out infinite alternate; }
+    .hero-stage { position: absolute; left: 50%; top: 53%; width: min(980px, 100vw); height: min(610px, 66vw); transform: translate(-50%, -50%); perspective: 920px; z-index: 1; }
+    .hologram-platform { position: absolute; left: 50%; bottom: -10%; width: 64%; aspect-ratio: 1 / 1; transform: translateX(-50%) rotateX(70deg); transform-style: preserve-3d; border-radius: 50%; animation: platform-float 6s ease-in-out infinite alternate; }
+    .platform-glow { position: absolute; inset: 31%; border-radius: 50%; background: radial-gradient(circle, #f7ffff 0 8%, #46fff0 12%, rgba(42,132,255,.45) 32%, transparent 68%); box-shadow: 0 0 28px rgba(70,255,240,.9), 0 0 96px rgba(16,185,129,.75); animation: core-pulse 2.8s ease-in-out infinite; }
+    .platform-ring { position: absolute; inset: var(--ring-inset); border: 1px solid rgba(84,246,235,.58); border-radius: 50%; box-shadow: 0 0 10px rgba(34,211,238,.45); animation: ring-spin 18s linear infinite; }
+    .platform-ring:nth-of-type(2n) { border-color: rgba(47,129,255,.58); animation-direction: reverse; animation-duration: 24s; }
+    .platform-ring:nth-of-type(3n) { border-style: dashed; border-color: rgba(67,255,176,.52); }
+    .platform-spoke { position: absolute; left: 50%; top: 50%; width: 50%; height: 1px; transform-origin: left center; transform: rotate(var(--spoke-angle)); background: linear-gradient(90deg, rgba(84,246,235,.8), rgba(40,135,255,.28), transparent); opacity: .74; }
+    .platform-dot { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; border-radius: 999px; background: #78fff2; box-shadow: 0 0 14px #3df6ff, 0 0 28px rgba(16,185,129,.72); transform: rotate(var(--dot-angle)) translateX(var(--dot-radius)) translateY(var(--dot-lift)); animation: dot-spark 3.2s ease-in-out infinite; animation-delay: var(--dot-delay); }
+    .light-field { position: absolute; left: 50%; bottom: -2%; width: 72%; height: 66%; transform: translateX(-50%); pointer-events: none; filter: blur(.15px); mix-blend-mode: screen; z-index: 3; }
+    .light-beam { position: absolute; left: 50%; bottom: 0; width: 2px; height: var(--beam-height); transform-origin: bottom center; transform: rotate(var(--beam-angle)) translateX(var(--beam-x)); background: linear-gradient(180deg, transparent, rgba(126,255,246,.9) 45%, rgba(42,132,255,.18) 88%, transparent); box-shadow: 0 0 12px rgba(64,255,238,.84), 0 0 34px rgba(42,132,255,.55); opacity: .28; animation: beam-rise 3.8s ease-in-out infinite; animation-delay: var(--beam-delay); }
+    .light-beam::after { content: ""; position: absolute; left: -3px; top: 20%; width: 7px; height: 7px; border-radius: 50%; background: #9ffff8; box-shadow: 0 0 18px #48fff2; animation: bead-travel 2.8s linear infinite; animation-delay: var(--bead-delay); }
+    .cube-wrap { position: absolute; left: 50%; top: 38%; --cube-size: clamp(132px, 18vw, 220px); --cube-depth: clamp(66px, 9vw, 110px); width: var(--cube-size); aspect-ratio: 1; transform: translate(-50%, -50%); transform-style: preserve-3d; animation: cube-hover 5.5s ease-in-out infinite alternate; z-index: 2; }
+    .nexivo-cube { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: cube-rotate 18s linear infinite; }
+    .cube-face { position: absolute; inset: 0; border: 1px solid rgba(122,255,239,.54); background: linear-gradient(135deg, rgba(75,255,202,.82), rgba(19,151,230,.78) 50%, rgba(39,89,255,.84)), linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: auto, 30px 30px, 30px 30px; box-shadow: inset 0 0 36px rgba(255,255,255,.11), 0 0 28px rgba(44,211,255,.18); opacity: .92; }
+    .cube-face-front { transform: translateZ(var(--cube-depth)); }
+    .cube-face-back { transform: rotateY(180deg) translateZ(var(--cube-depth)); }
+    .cube-face-right { transform: rotateY(90deg) translateZ(var(--cube-depth)); }
+    .cube-face-left { transform: rotateY(-90deg) translateZ(var(--cube-depth)); }
+    .cube-face-top { transform: rotateX(90deg) translateZ(var(--cube-depth)); }
+    .cube-face-bottom { transform: rotateX(-90deg) translateZ(var(--cube-depth)); }
+    .cube-face-front::after { content: ""; position: absolute; inset: 18% 10%; background: rgba(255,255,255,.92); filter: blur(20px); opacity: .18; }
+    .hero-content { position: relative; z-index: 2; width: min(980px, 100%); text-align: center; margin-top: 4vh; text-shadow: 0 18px 36px rgba(0,0,0,.55); }
+    .hero-content h1 { margin: 0; color: #fff; font-size: clamp(4.6rem, 14vw, 10.2rem); line-height: .82; font-weight: 900; letter-spacing: 0; }
+    .hero-kicker { margin: 0 0 18px; color: rgba(198,255,246,.86); font-size: clamp(.72rem, 1.35vw, 1rem); font-weight: 700; letter-spacing: .18em; }
+    .hero-subtitle { max-width: 690px; margin: 24px auto 0; color: rgba(232,247,250,.86); font-size: clamp(1rem, 1.6vw, 1.28rem); line-height: 1.65; }
+    .hero-actions { display: flex; justify-content: center; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+    .hero-primary-action, .hero-secondary-action { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 20px; border-radius: 8px; text-decoration: none; font-weight: 800; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease; }
+    .hero-primary-action { color: #031012; background: linear-gradient(135deg, #77fff4, #2cf0a4); box-shadow: 0 0 28px rgba(45,240,184,.28); }
+    .hero-secondary-action { color: #d9fffb; border: 1px solid rgba(133,255,240,.4); background: rgba(3,16,20,.42); backdrop-filter: blur(12px); }
+    .hero-primary-action:hover, .hero-secondary-action:hover { transform: translateY(-2px); }
+    .hero-data-wave { position: absolute; top: 27%; width: 38vw; height: 30vh; z-index: 1; opacity: .5; transform: rotate(-12deg); pointer-events: none; }
+    .hero-data-wave-left { left: 12%; }
+    .hero-data-wave-right { right: 10%; transform: scaleX(-1) rotate(-9deg); }
+    .hero-data-wave span { position: absolute; left: var(--dot-x); top: 45%; width: 3px; height: 3px; border-radius: 50%; background: rgba(108,255,245,.9); box-shadow: 0 0 12px rgba(76,255,238,.8); transform: translateY(var(--dot-y)); animation: wave-flow 5.4s ease-in-out infinite; animation-delay: var(--dot-delay); }
+    @keyframes ambient-breathe { from { opacity: .55; transform: scale(1); } to { opacity: .85; transform: scale(1.03); } }
+    @keyframes platform-float { from { transform: translateX(-50%) rotateX(70deg) translateY(0); } to { transform: translateX(-50%) rotateX(70deg) translateY(-10px); } }
+    @keyframes core-pulse { 0%, 100% { opacity: .65; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+    @keyframes ring-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes dot-spark { 0%, 100% { opacity: .22; } 50% { opacity: 1; } }
+    @keyframes beam-rise { 0%, 100% { opacity: .16; transform: rotate(var(--beam-angle)) translateX(var(--beam-x)) scaleY(.82); } 45% { opacity: .82; transform: rotate(var(--beam-angle-active)) translateX(var(--beam-x)) scaleY(1.08); } }
+    @keyframes bead-travel { from { transform: translateY(80px) scale(.5); opacity: 0; } 35% { opacity: 1; } to { transform: translateY(-230px) scale(1.1); opacity: 0; } }
+    @keyframes cube-hover { from { transform: translate(-50%, -50%) translateY(8px); } to { transform: translate(-50%, -50%) translateY(-13px); } }
+    @keyframes cube-rotate { from { transform: rotateX(-16deg) rotateY(28deg); } to { transform: rotateX(-16deg) rotateY(388deg); } }
+    @keyframes wave-flow { 0%, 100% { opacity: .08; transform: translate(-18px, var(--dot-y)); } 50% { opacity: .85; transform: translate(28px, var(--dot-y-alt)); } }
+    @media (max-width: 768px) { .nexivo-hero { min-height: 100svh; padding: 88px 18px 34px; } .hero-stage { top: 48%; width: 112vw; height: 74vh; } .hologram-platform { width: 92%; bottom: 13%; } .light-field { width: 88%; height: 48%; bottom: 24%; } .light-beam { height: var(--beam-height-mobile); } .cube-wrap { top: 39%; } .hero-content { margin-top: -2vh; } .hero-content h1 { font-size: clamp(4rem, 20vw, 6.2rem); } .hero-subtitle { max-width: 34rem; } .hero-data-wave { display: none; } }
+    @media (max-width: 480px) { .hero-actions { width: 100%; } .hero-primary-action, .hero-secondary-action { width: min(100%, 310px); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
   </style>
 </head>
 <body>
@@ -66,6 +119,38 @@
   <script type="text/babel" data-presets="react,typescript">
     const { useState, useEffect } = React;
     const { HashRouter, Routes, Route, Link, useLocation } = window.ReactRouterDOM;
+    const platformRings = Array.from({ length: 5 }, (_, index) => index);
+    const platformSpokes = Array.from({ length: 28 }, (_, index) => index);
+    const lightBeams = Array.from({ length: 22 }, (_, index) => index);
+    const orbitDots = Array.from({ length: 34 }, (_, index) => index);
+    const dataDots = Array.from({ length: 44 }, (_, index) => index);
+    const ringStyle = (index) => ({
+      '--ring-inset': `${index * 8.5}%`,
+    });
+    const spokeStyle = (index) => ({
+      '--spoke-angle': `${index * 12.857}deg`,
+    });
+    const dataDotStyle = (index) => ({
+      '--dot-x': `${(index % 11) * 8.5}%`,
+      '--dot-y': `${(index % 7 - 3) * 13}px`,
+      '--dot-y-alt': `${(index % 7 - 3) * -11}px`,
+      '--dot-delay': `${index * -0.08}s`,
+    });
+    const orbitDotStyle = (index) => ({
+      '--dot-angle': `${index * 21}deg`,
+      '--dot-radius': `${138 + (index % 7) * 28}px`,
+      '--dot-lift': `${(index % 5) * 8}px`,
+      '--dot-delay': `${index * -0.13}s`,
+    });
+    const beamStyle = (index) => ({
+      '--beam-height': `${185 + (index % 8) * 30}px`,
+      '--beam-height-mobile': `${(185 + (index % 8) * 30) * 0.72}px`,
+      '--beam-angle': `${-42 + index * 4}deg`,
+      '--beam-angle-active': `${-47 + index * 4.35}deg`,
+      '--beam-x': `${(index % 5 - 2) * 12}px`,
+      '--beam-delay': `${index * -0.18}s`,
+      '--bead-delay': `${index * -0.21}s`,
+    });
 
     // --- İkonlar (Lucide yerine inline SVG kullanıldı, dışa bağımlılığı bitirmek için) ---
     const MenuIcon = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>;
@@ -112,28 +197,60 @@
     };
 
     const Home = () => (
-      <section className="min-h-[calc(100vh-70px)] flex flex-col justify-center items-center text-center px-5 py-20 bg-[radial-gradient(circle_at_center,#18181b_0%,#09090b_100%)]">
-        <h1 className="text-5xl md:text-[4.5rem] mb-4 bg-gradient-to-br from-white to-[#a1a1aa] bg-clip-text text-transparent font-bold leading-tight animate-fade-in-up">
-          Impossible to Spoof.
-        </h1>
-        <p className="text-lg md:text-[1.3rem] text-[#a1a1aa] max-w-[600px] mb-12 leading-relaxed">
-          Biyometrik güvenlikte yeni standart: "Sıfır Güven" mimarisiyle tasarlanmış, deri altı damar haritalama teknolojisi.
-        </p>
-        
-        <div className="bg-card-dark border border-accent-purple p-8 md:p-12 rounded-2xl max-w-[700px] w-full shadow-[0_20px_40px_rgba(139,92,246,0.1)] relative overflow-hidden text-left transition-transform hover:-translate-y-2">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple to-accent-green"></div>
-          <div className="text-accent-purple font-bold mb-4 tracking-[2px] text-sm">ÖZEL SUNUM</div>
-          <h2 className="mt-0 text-white text-2xl md:text-3xl font-bold mb-4">MEXT TWINnovation Challenge</h2>
-          <p className="text-[#a1a1aa] text-base md:text-[1.1rem] mb-8 leading-relaxed">
-            Ankara TEKMER Demo Day için hazırladığımız, NEXIVO'nun mimarisini ve Dinamik CVV teknolojisini detaylandıran interaktif sunumumuzu inceleyin.
+      <section className="nexivo-hero">
+        <div className="hero-ambient" aria-hidden="true"></div>
+        <div className="hero-data-wave hero-data-wave-left" aria-hidden="true">
+          {dataDots.map((dot) => <span key={`left-${dot}`} style={dataDotStyle(dot)} />)}
+        </div>
+        <div className="hero-data-wave hero-data-wave-right" aria-hidden="true">
+          {dataDots.map((dot) => <span key={`right-${dot}`} style={dataDotStyle(dot)} />)}
+        </div>
+
+        <div className="hero-stage" aria-hidden="true">
+          <div className="hologram-platform">
+            <div className="platform-glow"></div>
+            {platformRings.map((ring) => (
+              <span key={ring} className="platform-ring" style={ringStyle(ring)} />
+            ))}
+            {platformSpokes.map((spoke) => (
+              <span key={spoke} className="platform-spoke" style={spokeStyle(spoke)} />
+            ))}
+            {orbitDots.map((dot) => (
+              <span key={dot} className="platform-dot" style={orbitDotStyle(dot)} />
+            ))}
+          </div>
+
+          <div className="light-field">
+            {lightBeams.map((beam) => (
+              <span key={beam} className="light-beam" style={beamStyle(beam)} />
+            ))}
+          </div>
+
+          <div className="cube-wrap">
+            <div className="nexivo-cube">
+              <span className="cube-face cube-face-front"></span>
+              <span className="cube-face cube-face-back"></span>
+              <span className="cube-face cube-face-right"></span>
+              <span className="cube-face cube-face-left"></span>
+              <span className="cube-face cube-face-top"></span>
+              <span className="cube-face cube-face-bottom"></span>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero-content">
+          <p className="hero-kicker">NEXT-GENERATION BIOMETRIC SECURITY</p>
+          <h1>NEXIVO</h1>
+          <p className="hero-subtitle">
+            Damar haritalama, dinamik doğrulama ve sıfır güven mimarisiyle biyometrik güvenlik için yeni nesil koruma.
           </p>
-          <a href="tekmer.html" className="inline-block bg-text-light text-bg-dark px-6 py-3 rounded-lg font-bold transition-all hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,255,255,0.1)]">
-            İnteraktif Sunumu Başlat
-          </a>
+          <div className="hero-actions">
+            <a href="tekmer.html" className="hero-primary-action">TWINnovation Pitch</a>
+            <Link to="/teknoloji" className="hero-secondary-action">Teknolojiyi İncele</Link>
+          </div>
         </div>
       </section>
     );
-
     const Teknoloji = () => (
       <div className="min-h-[calc(100vh-70px)] py-20 px-6 md:px-[5vw]">
         <div className="max-w-5xl mx-auto">

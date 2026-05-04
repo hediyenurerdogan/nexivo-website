@@ -1,31 +1,120 @@
-import React from 'react';
+import type { CSSProperties } from 'react';
+
+const platformRings = Array.from({ length: 5 }, (_, index) => index);
+const platformSpokes = Array.from({ length: 28 }, (_, index) => index);
+const lightBeams = Array.from({ length: 22 }, (_, index) => index);
+const orbitDots = Array.from({ length: 34 }, (_, index) => index);
+const dataDots = Array.from({ length: 44 }, (_, index) => index);
+
+const ringStyle = (index: number): CSSProperties => ({
+  '--ring-inset': `${index * 8.5}%`,
+} as CSSProperties);
+
+const spokeStyle = (index: number): CSSProperties => ({
+  '--spoke-angle': `${index * 12.857}deg`,
+} as CSSProperties);
+
+const dataDotStyle = (index: number): CSSProperties => ({
+  '--dot-x': `${(index % 11) * 8.5}%`,
+  '--dot-y': `${(index % 7 - 3) * 13}px`,
+  '--dot-y-alt': `${(index % 7 - 3) * -11}px`,
+  '--dot-delay': `${index * -0.08}s`,
+} as CSSProperties);
+
+const orbitDotStyle = (index: number): CSSProperties => ({
+  '--dot-angle': `${index * 21}deg`,
+  '--dot-radius': `${138 + (index % 7) * 28}px`,
+  '--dot-lift': `${(index % 5) * 8}px`,
+  '--dot-delay': `${index * -0.13}s`,
+} as CSSProperties);
+
+const beamStyle = (index: number): CSSProperties => ({
+  '--beam-height': `${185 + (index % 8) * 30}px`,
+  '--beam-height-mobile': `${(185 + (index % 8) * 30) * 0.72}px`,
+  '--beam-angle': `${-42 + index * 4}deg`,
+  '--beam-angle-active': `${-47 + index * 4.35}deg`,
+  '--beam-x': `${(index % 5 - 2) * 12}px`,
+  '--beam-delay': `${index * -0.18}s`,
+  '--bead-delay': `${index * -0.21}s`,
+} as CSSProperties);
 
 export default function Home() {
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center text-center px-5 pt-[80px] bg-[radial-gradient(circle_at_center,#18181b_0%,#09090b_100%)]">
-      <h1 className="text-5xl md:text-[4.5rem] mb-4 bg-gradient-to-br from-white to-[#a1a1aa] bg-clip-text text-transparent font-bold leading-tight animate-fade-in-up">
-        Impossible to Spoof.
-      </h1>
-      <p className="text-lg md:text-[1.3rem] text-[#a1a1aa] max-w-[600px] mb-12 leading-relaxed">
-        Biyometrik güvenlikte yeni standart: "Sıfır Güven" mimarisiyle tasarlanmış, deri altı damar haritalama teknolojisi.
-      </p>
-      
-      {/* TEKMER Call to Action Kutusu */}
-      <div className="bg-card-dark border border-accent-purple p-8 md:p-12 rounded-2xl max-w-[700px] w-full shadow-[0_20px_40px_rgba(139,92,246,0.1)] relative overflow-hidden text-left group transition-transform duration-500 hover:-translate-y-2">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple to-accent-green"></div>
-        
-        <div className="text-accent-purple font-bold mb-4 tracking-[2px] text-sm md:text-base">ÖZEL SUNUM</div>
-        <h2 className="mt-0 text-white text-2xl md:text-3xl font-bold mb-4">MEXT TWINnovation Challenge</h2>
-        <p className="text-[#a1a1aa] text-base md:text-[1.1rem] mb-8 leading-relaxed">
-          Ankara TEKMER Demo Day için hazırladığımız, NEXIVO'nun mimarisini ve Dinamik CVV teknolojisini detaylandıran interaktif sunumumuzu inceleyin.
+    <section className="nexivo-hero">
+      <div className="hero-ambient" aria-hidden="true" />
+      <div className="hero-data-wave hero-data-wave-left" aria-hidden="true">
+        {dataDots.map((dot) => (
+          <span key={`left-${dot}`} style={dataDotStyle(dot)} />
+        ))}
+      </div>
+      <div className="hero-data-wave hero-data-wave-right" aria-hidden="true">
+        {dataDots.map((dot) => (
+          <span key={`right-${dot}`} style={dataDotStyle(dot)} />
+        ))}
+      </div>
+
+      <div className="hero-stage" aria-hidden="true">
+        <div className="hologram-platform">
+          <div className="platform-glow" />
+          {platformRings.map((ring) => (
+            <span
+              key={ring}
+              className="platform-ring"
+              style={ringStyle(ring)}
+            />
+          ))}
+          {platformSpokes.map((spoke) => (
+            <span
+              key={spoke}
+              className="platform-spoke"
+              style={spokeStyle(spoke)}
+            />
+          ))}
+          {orbitDots.map((dot) => (
+            <span
+              key={dot}
+              className="platform-dot"
+              style={orbitDotStyle(dot)}
+            />
+          ))}
+        </div>
+
+        <div className="light-field">
+          {lightBeams.map((beam) => (
+            <span
+              key={beam}
+              className="light-beam"
+              style={beamStyle(beam)}
+            />
+          ))}
+        </div>
+
+        <div className="cube-wrap">
+          <div className="nexivo-cube">
+            <span className="cube-face cube-face-front" />
+            <span className="cube-face cube-face-back" />
+            <span className="cube-face cube-face-right" />
+            <span className="cube-face cube-face-left" />
+            <span className="cube-face cube-face-top" />
+            <span className="cube-face cube-face-bottom" />
+          </div>
+        </div>
+      </div>
+
+      <div className="hero-content">
+        <p className="hero-kicker">NEXT-GENERATION BIOMETRIC SECURITY</p>
+        <h1>NEXIVO</h1>
+        <p className="hero-subtitle">
+          Damar haritalama, dinamik doğrulama ve sıfır güven mimarisiyle biyometrik güvenlik için yeni nesil koruma.
         </p>
-        
-        <a 
-          href="/tekmer.html" 
-          className="inline-block bg-text-light text-bg-dark px-6 py-3 md:px-8 md:py-4 rounded-lg no-underline font-bold text-base md:text-[1.1rem] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,255,255,0.1)]"
-        >
-          İnteraktif Sunumu Başlat
-        </a>
+        <div className="hero-actions">
+          <a href="/tekmer.html" className="hero-primary-action">
+            TWINnovation Pitch
+          </a>
+          <a href="#/teknoloji" className="hero-secondary-action">
+            Teknolojiyi İncele
+          </a>
+        </div>
       </div>
     </section>
   );
