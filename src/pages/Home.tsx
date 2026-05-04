@@ -105,11 +105,11 @@ export default function Home() {
         <p className="hero-kicker">NEXT-GENERATION BIOMETRIC SECURITY</p>
         <h1>NEXIVO</h1>
         <p className="hero-subtitle">
-          Damar haritalama, dinamik doğrulama ve sıfır güven mimarisiyle biyometrik güvenlik için yeni nesil koruma.
+          Kopyalanamaz damar biyometrisiyle kimlik doğrulamayı yeniden tasarlayan erken aşama güvenlik girişimi.
         </p>
         <div className="hero-actions">
           <a href="/tekmer.html" className="hero-primary-action">
-            TWINnovation Pitch
+            Yatırımcı Sunumu
           </a>
           <a href="#/teknoloji" className="hero-secondary-action">
             Teknolojiyi İncele

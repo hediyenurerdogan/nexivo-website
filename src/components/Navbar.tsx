@@ -47,7 +47,7 @@ export default function Navbar() {
           href="/tekmer.html" 
           className="hidden md:inline-block bg-accent-green/10 text-accent-green border border-accent-green px-5 py-2 rounded-lg font-semibold animate-pulse-border hover:bg-accent-green hover:text-black transition-all duration-300 whitespace-nowrap"
         >
-          ▶ TWINnovation Pitch
+          ▶ Yatırımcı Sunumu
         </a>
         
         {/* Mobil Menü Aç/Kapat Butonu */}
@@ -69,7 +69,7 @@ export default function Navbar() {
             href="/tekmer.html" 
             className="bg-accent-green/10 text-accent-green border border-accent-green px-5 py-3 rounded-lg font-semibold text-center animate-pulse-border hover:bg-accent-green hover:text-black transition-all duration-300 mt-2"
           >
-            ▶ TWINnovation Pitch
+            ▶ Yatırımcı Sunumu
           </a>
         </div>
       )}
