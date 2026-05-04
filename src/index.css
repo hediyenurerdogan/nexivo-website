@@ -1,3 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 1. KÜP ANİMASYONU: Yavaşça yukarı/aşağı süzülme ve sağa (saat yönünde) dönme */
+.animate-cube {
+  animation: floatAndRotate 15s linear infinite;
+  display: inline-block;
+}
+
+@keyframes floatAndRotate {
+  0% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-15px) rotate(90deg); }
+  50% { transform: translateY(0px) rotate(180deg); }
+  75% { transform: translateY(15px) rotate(270deg); }
+  100% { transform: translateY(0px) rotate(360deg); }
+}
+
+/* 2. ÇEMBER VE IŞINLARIN DÖNÜŞÜ: Kesintisiz 360 derece yavaş dönüş */
+.animate-radar-spin {
+  animation: spinSlowly 30s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes spinSlowly {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 3. IŞIK HÜZMELERİNİN NEFES ALMASI: Pulse/Glow efekti */
+.animate-glow-pulse {
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.5; filter: brightness(1) drop-shadow(0 0 10px rgba(16, 185, 129, 0.2)); transform: scale(0.98); }
+  100% { opacity: 1; filter: brightness(1.3) drop-shadow(0 0 20px rgba(16, 185, 129, 0.6)); transform: scale(1.02); }
+}
