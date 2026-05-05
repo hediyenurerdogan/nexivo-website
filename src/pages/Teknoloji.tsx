@@ -36,6 +36,16 @@ const technicalQuestions = [
     answer:
       'Yüksek teknoloji barındırdığı için üretim maliyeti standart kartlardan yüksektir. Bu nedenle pazara giriş (Go-To-Market) stratejimiz standart perakende bankacılık değil; yüksek güvenlik gerektiren Private Banking (Özel Bankacılık) müşterileri, VIP portföyler ve kurumsal erişim altyapılarıdır.',
   },
+  {
+    question: 'Bu projenin ortalama maliyeti neye göre belirlenir?',
+    answer:
+      'NEXIVO’da maliyet yalnızca tek bir kartın üretim bedeliyle değil; esnek PCB tasarımı, NIR LED dizisi, güvenli eleman, ARM tabanlı işlemci, Edge AI yazılımı, prototip iterasyonları, laboratuvar testleri ve pilot entegrasyon süreçleriyle birlikte değerlendirilir. İlk Ar-Ge ve düşük adetli prototip aşamalarında birim maliyet doğal olarak yüksektir. Hedefimiz, teknik doğrulama ve pilotlardan sonra üretim tasarımını sadeleştirerek maliyeti seçili yüksek güvenlik segmentleri için sürdürülebilir seviyeye indirmektir.',
+  },
+  {
+    question: 'Ar-Ge aşamasında neden yatırım desteğine ihtiyacımız var?',
+    answer:
+      'NEXIVO yalnızca bir yazılım fikri değil; donanım, biyometrik okuma, güvenli veri saklama, cihaz üstü yapay zeka ve kurumsal entegrasyonu aynı üründe birleştiren derin teknoloji girişimidir. Yatırım desteği; prototip üretimi, elektronik tasarım iterasyonları, güvenlik testleri, yazılım geliştirme, fikri mülkiyet hazırlığı ve pilot kurumlarla doğrulama süreçlerini hızlandırır. Bu destek sayesinde ürün riski azalır, TRL seviyesi yükselir ve yatırımcılar ile stratejik ortaklara gösterilebilir somut bir demo/pilot çıktısı oluşur.',
+  },
 ];
 
 export default function Teknoloji() {
