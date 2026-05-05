@@ -282,6 +282,19 @@ body {
   letter-spacing: 0;
 }
 
+.hero-logo-heading {
+  display: flex;
+  justify-content: center;
+  line-height: 1;
+}
+
+.hero-logo-image {
+  display: block;
+  width: min(780px, 86vw);
+  height: auto;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.6));
+}
+
 .hero-kicker {
   margin: 0 0 18px;
   color: rgba(198, 255, 246, 0.86);
@@ -468,6 +481,10 @@ body {
 
   .hero-content h1 {
     font-size: clamp(4rem, 20vw, 6.2rem);
+  }
+
+  .hero-logo-image {
+    width: min(92vw, 620px);
   }
 
   .hero-subtitle {

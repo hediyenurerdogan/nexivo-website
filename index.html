@@ -86,6 +86,8 @@
     .cube-face-front::after { content: ""; position: absolute; inset: 18% 10%; background: rgba(255,255,255,.92); filter: blur(20px); opacity: .18; }
     .hero-content { position: relative; z-index: 2; width: min(980px, 100%); text-align: center; margin-top: -2vh; text-shadow: 0 18px 36px rgba(0,0,0,.55); }
     .hero-content h1 { margin: 0; color: #fff; font-size: clamp(4.6rem, 14vw, 10.2rem); line-height: .82; font-weight: 900; letter-spacing: 0; }
+    .hero-logo-heading { display: flex; justify-content: center; line-height: 1; }
+    .hero-logo-image { display: block; width: min(780px, 86vw); height: auto; filter: drop-shadow(0 18px 34px rgba(0,0,0,.6)); }
     .hero-kicker { margin: 0 0 18px; color: rgba(198,255,246,.86); font-size: clamp(.72rem, 1.35vw, 1rem); font-weight: 700; letter-spacing: .18em; }
     .hero-subtitle { max-width: 690px; margin: 24px auto 0; color: rgba(232,247,250,.86); font-size: clamp(1rem, 1.6vw, 1.28rem); line-height: 1.65; }
     .hero-actions { display: flex; justify-content: center; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
@@ -107,7 +109,7 @@
     @keyframes cube-hover { from { transform: translate(-50%, -50%) translateY(8px); } to { transform: translate(-50%, -50%) translateY(-13px); } }
     @keyframes cube-rotate { from { transform: rotateX(-16deg) rotateY(28deg); } to { transform: rotateX(-16deg) rotateY(388deg); } }
     @keyframes wave-flow { 0%, 100% { opacity: .08; transform: translate(-18px, var(--dot-y)); } 50% { opacity: .85; transform: translate(28px, var(--dot-y-alt)); } }
-    @media (max-width: 768px) { .nexivo-hero { min-height: 100svh; height: 100svh; padding: 72px 18px 18px; } .hero-stage { top: 48%; width: 112vw; height: 74vh; } .hologram-platform { width: 92%; bottom: -10%; } .light-field { width: 88%; height: 48%; bottom: 2%; } .light-beam { height: var(--beam-height-mobile); } .cube-wrap { top: 39%; } .hero-content { margin-top: -2vh; } .hero-content h1 { font-size: clamp(4rem, 20vw, 6.2rem); } .hero-subtitle { max-width: 34rem; } .hero-data-wave { display: none; } }
+    @media (max-width: 768px) { .nexivo-hero { min-height: 100svh; height: 100svh; padding: 72px 18px 18px; } .hero-stage { top: 48%; width: 112vw; height: 74vh; } .hologram-platform { width: 92%; bottom: -10%; } .light-field { width: 88%; height: 48%; bottom: 2%; } .light-beam { height: var(--beam-height-mobile); } .cube-wrap { top: 39%; } .hero-content { margin-top: -2vh; } .hero-content h1 { font-size: clamp(4rem, 20vw, 6.2rem); } .hero-logo-image { width: min(92vw, 620px); } .hero-subtitle { max-width: 34rem; } .hero-data-wave { display: none; } }
     @media (max-width: 480px) { .hero-actions { width: 100%; } .hero-primary-action, .hero-secondary-action { width: min(100%, 310px); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
     .faq-item > summary { list-style: none; }
@@ -242,7 +244,9 @@
 
         <div className="hero-content">
           <p className="hero-kicker">NEXT-GENERATION BIOMETRIC SECURITY</p>
-          <h1>NEXIVO</h1>
+          <h1 className="hero-logo-heading">
+            <img className="hero-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
+          </h1>
           <p className="hero-subtitle">
             Kopyalanamaz damar biyometrisiyle kimlik doğrulamayı yeniden tasarlayan erken aşama güvenlik girişimi.
           </p>

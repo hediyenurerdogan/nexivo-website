@@ -103,7 +103,9 @@ export default function Home() {
 
       <div className="hero-content">
         <p className="hero-kicker">NEXT-GENERATION BIOMETRIC SECURITY</p>
-        <h1>NEXIVO</h1>
+        <h1 className="hero-logo-heading">
+          <img className="hero-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
+        </h1>
         <p className="hero-subtitle">
           Kopyalanamaz damar biyometrisiyle kimlik doğrulamayı yeniden tasarlayan erken aşama güvenlik girişimi.
         </p>
