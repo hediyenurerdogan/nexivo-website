@@ -518,41 +518,74 @@
             }
 
             .animation-container {
-                height: 300px;
+                height: 320px;
                 perspective: 1800px;
-                margin-top: -0.5rem;
+                margin: -0.5rem 0 0 -1.25rem;
             }
 
             .layer {
-                width: min(58vw, 220px);
-                height: calc(min(58vw, 220px) * 0.54);
-                font-size: 0.78rem;
+                width: min(46vw, 180px);
+                height: calc(min(46vw, 180px) * 0.54);
+                font-size: 0.68rem;
                 border-radius: 10px;
-                animation: none !important;
+                animation-duration: 9s;
+                animation-iteration-count: infinite;
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                animation-delay: -3.6s;
             }
 
-            .layer-1 { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 110px); }
-            .layer-2 { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 55px); }
-            .layer-3 { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
-            .layer-4 { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, -55px); }
-            .layer-5 { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, -110px); }
+            .layer-1 { animation-name: mobile-explode-1; }
+            .layer-2 { animation-name: mobile-explode-2; }
+            .layer-3 { animation-name: mobile-explode-3; }
+            .layer-4 { animation-name: mobile-explode-4; }
+            .layer-5 { animation-name: mobile-explode-5; }
+
+            @keyframes mobile-explode-1 {
+                0%, 18%, 100% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
+                32%, 78% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, -92px, 55px); }
+            }
+
+            @keyframes mobile-explode-2 {
+                0%, 18%, 100% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
+                32%, 78% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, -46px, 28px); }
+            }
+
+            @keyframes mobile-explode-3 {
+                0%, 18%, 100% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
+                32%, 78% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
+            }
+
+            @keyframes mobile-explode-4 {
+                0%, 18%, 100% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
+                32%, 78% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 46px, -28px); }
+            }
+
+            @keyframes mobile-explode-5 {
+                0%, 18%, 100% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 0, 0); }
+                32%, 78% { transform: rotateX(55deg) rotateZ(-40deg) translate3d(0, 92px, -55px); }
+            }
 
             ul.custom-list {
                 width: 100%;
-                max-width: min(100%, 330px);
+                max-width: calc(100vw - 3.25rem);
                 margin-top: 1rem;
             }
 
             ul.custom-list li {
                 width: 100%;
-                max-width: min(100%, 330px);
+                max-width: calc(100vw - 3.25rem);
                 display: block;
-                font-size: 0.86rem;
+                font-size: 0.8rem;
                 line-height: 1.45;
                 margin-bottom: 0.75rem;
                 padding-left: 1.55rem;
                 overflow-wrap: anywhere;
                 word-break: break-word;
+                white-space: normal;
+            }
+
+            .highlight-text {
+                display: inline;
                 white-space: normal;
             }
 
