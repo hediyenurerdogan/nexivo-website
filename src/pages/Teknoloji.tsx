@@ -12,6 +12,11 @@ const technicalQuestions = [
       'NEXIVO, "Sıfır Güven" (Zero-Trust) mimarisi üzerine inşa edilmiştir. Biyometrik veriniz ham bir görsel olarak değil, matematiksel ve geri döndürülemez şifreli bir şablon olarak karttaki ISO/IEC 7816 standartlarına sahip "Güvenli Eleman" (Secure Element) katmanında saklanır. Doğrulama işlemi tamamen cihaz üstünde yapıldığı için biyometrik veriniz hiçbir zaman kartın dışına çıkmaz, bir okuyucu cihaza, banka sunucusuna veya buluta aktarılmaz. Bu "cihaz üstü" (on-device) gizlilik yaklaşımı sayesinde verinizin uzaktan veya fiziksel olarak kopyalanması imkansız hale getirilir.',
   },
   {
+    question: 'NEXIVO\'da "Sıfır Güven" (Zero-Trust) mimarisi tam olarak nasıl işliyor?',
+    answer:
+      '"Sıfır Güven" prensibimiz gereği, kartımız iletişim kurduğu hiçbir dış cihaza, ağa veya POS terminaline peşinen güvenmez. Geleneksel sistemlerde parmak izi veya şifre verisi doğrulama için karşı sisteme iletilirken; NEXIVO\'da biyometrik okuma ve eşleştirme tamamen kartın içindeki yalıtılmış donanımda (Edge AI ve Güvenli Eleman) gerçekleşir. Dış dünyaya, yani ödeme terminaline veya erişim noktasına, sadece kriptografik olarak şifrelenmiş, tek kullanımlık bir "onay" sinyali gönderilir. Bu sayede işlem yapılan terminal hacklense bile, sistemde çalınabilecek veya kopyalanabilecek hiçbir kişisel veri bulunmaz.',
+  },
+  {
     question: '5 farklı katman 0.76 mm standart kart inceliğine nasıl sığacak?',
     answer:
       'Geleneksel sert devre kartları yerine giyilebilir teknolojilerde de tercih edilen "Esnek Baskılı Devre Kartları (Flexible PCB)" kullanıyoruz. Mikroçiplerde ise endüstri standardı ultra-ince paketlemeler (ultra-thin SoC) tercih edilerek boyut ve esneklik optimizasyonu sağlanmaktadır.',
