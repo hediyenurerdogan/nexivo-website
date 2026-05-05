@@ -2,6 +2,16 @@ import { ChevronDown, Cpu, Fingerprint, ShieldCheck } from 'lucide-react';
 
 const technicalQuestions = [
   {
+    question: 'Deri altı damar haritası teknik olarak tam olarak nasıl okunuyor?',
+    answer:
+      'Kartımızın içinde yer alan ve 850-940 nm dalga boyunda çalışan yakın kızılötesi (NIR) LED dizisi, parmağınız karta temas ettiğinde deri altına nüfuz eden güvenli bir ışık gönderir. Kandaki hemoglobinin bu ışığı emme oranı sayesinde deri altındaki eşsiz damar ağınızın net bir haritası çıkarılır. Bu harita, kartın üzerindeki Edge AI (ARM Cortex-M4F) işlemcimiz tarafından saniyeler içinde anlık olarak analiz edilerek eşleştirme işlemi doğrudan cihaz üzerinde gerçekleştirilir.',
+  },
+  {
+    question: 'Biyometrik verim kartın içinde nasıl depolanıyor ve çalınmaya karşı nasıl korunuyor?',
+    answer:
+      'NEXIVO, "Sıfır Güven" (Zero-Trust) mimarisi üzerine inşa edilmiştir. Biyometrik veriniz ham bir görsel olarak değil, matematiksel ve geri döndürülemez şifreli bir şablon olarak karttaki ISO/IEC 7816 standartlarına sahip "Güvenli Eleman" (Secure Element) katmanında saklanır. Doğrulama işlemi tamamen cihaz üstünde yapıldığı için biyometrik veriniz hiçbir zaman kartın dışına çıkmaz, bir okuyucu cihaza, banka sunucusuna veya buluta aktarılmaz. Bu "cihaz üstü" (on-device) gizlilik yaklaşımı sayesinde verinizin uzaktan veya fiziksel olarak kopyalanması imkansız hale getirilir.',
+  },
+  {
     question: '5 farklı katman 0.76 mm standart kart inceliğine nasıl sığacak?',
     answer:
       'Geleneksel sert devre kartları yerine giyilebilir teknolojilerde de tercih edilen "Esnek Baskılı Devre Kartları (Flexible PCB)" kullanıyoruz. Mikroçiplerde ise endüstri standardı ultra-ince paketlemeler (ultra-thin SoC) tercih edilerek boyut ve esneklik optimizasyonu sağlanmaktadır.',
