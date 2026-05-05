@@ -422,6 +422,14 @@ body {
   50% { opacity: 0.85; transform: translate(28px, var(--dot-y-alt)); }
 }
 
+.faq-item > summary {
+  list-style: none;
+}
+
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .nexivo-hero {
     min-height: 100svh;
