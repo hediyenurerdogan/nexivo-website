@@ -17,6 +17,20 @@ body {
   animation: pulse-border 2s infinite;
 }
 
+.navbar-logo-link {
+  display: inline-flex;
+  align-items: center;
+  width: 118px;
+  line-height: 1;
+}
+
+.navbar-logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+}
+
 .nexivo-hero {
   position: relative;
   box-sizing: border-box;

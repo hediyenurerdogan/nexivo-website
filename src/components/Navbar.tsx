@@ -14,8 +14,8 @@ export default function Navbar() {
     <nav className="fixed w-full top-0 z-[100] flex justify-between items-center px-6 md:px-[5vw] py-3 md:py-4 border-b border-border-subtle bg-bg-dark/80 backdrop-blur-md box-border transition-all duration-300">
       {/* Sol: Logo */}
       <div className="flex-1 flex justify-start">
-        <Link to="/" onClick={closeMenu} className="text-2xl md:text-[1.8rem] font-extrabold tracking-[1px] text-white no-underline">
-          NEXIVO
+        <Link to="/" onClick={closeMenu} className="navbar-logo-link" aria-label="NEXIVO ana sayfa">
+          <img className="navbar-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
         </Link>
       </div>
       
