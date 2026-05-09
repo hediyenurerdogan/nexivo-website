@@ -4,7 +4,7 @@ const technicalQuestions = [
   {
     question: 'NEXIVO ilk aşamada ne geliştiriyor?',
     answer:
-      'NEXIVO ilk aşamada ödeme kartı üretmez. İlk hedef, NIR tabanlı damar görüntüleme, şablon çıkarma, eşleştirme ve liveness kontrolünü çalışan bir teknik MVP ile doğrulamaktır. Kart vizyonu uzun vadede korunur; ancak çekirdek teknoloji önce kurumsal erişim ve yüksek güvenlikli kimlik doğrulama senaryolarında test edilir.',
+      'İlk hedef, NIR tabanlı damar görüntüleme, şablon çıkarma, eşleştirme ve liveness kontrolünü çalışan bir teknik MVP ile doğrulamaktır. Çekirdek teknoloji önce kurumsal erişim ve yüksek güvenlikli kimlik doğrulama senaryolarında test edilir.',
   },
   {
     question: 'Damar biyometrisi teknik olarak nasıl okunur?',
@@ -17,11 +17,6 @@ const technicalQuestions = [
       'Mimari, ham biyometrik görüntünün saklanmaması ve eşleştirmenin mümkün olduğunca cihaz üzerinde yapılması prensibine dayanır. Dış sistemlere biyometrik veri değil, yalnızca doğrulama sonucu veya kriptografik onay sinyali gönderilir. Bu yaklaşım KVKK, veri minimizasyonu ve kurumsal güvenlik ihtiyaçlarıyla uyumludur.',
   },
   {
-    question: 'Neden önce kart değil doğrulama altyapısı?',
-    answer:
-      'Ödeme kartı form faktörü; optik donanım, enerji, sertifikasyon, bankacılık entegrasyonu ve üretim maliyeti açısından en zor başlangıç noktasıdır. NEXIVO önce damar biyometrisi doğrulama çekirdeğini kanıtlar; ardından bu çekirdeği erişim kontrolü, private banking, dijital kimlik ve uzun vadede kart uygulamalarına taşır.',
-  },
-  {
     question: 'Liveness / sahtecilik tespiti ürünün neresinde?',
     answer:
       'Liveness, ilk MVP’den itibaren teknik risk alanı olarak ele alınır. Amaç yalnızca damar deseni görmek değil; basılı görsel, ekran, yapay parmak veya statik sahte örneklere karşı dayanıklılığı ölçmektir. Bu nedenle presentation attack detection testleri doğrulama motorunun parçasıdır.',
@@ -29,7 +24,7 @@ const technicalQuestions = [
   {
     question: 'İlk pilot nerede yapılmalı?',
     answer:
-      'İlk pilot için banka ödeme altyapısı yerine daha hızlı karar alınabilecek kurumsal erişim senaryoları önerilir: Ar-Ge laboratuvarı, veri merkezi, teknopark prototip odası, savunma sanayi tedarikçisi veya private banking şube içi doğrulama alanı.',
+      'İlk pilot için hızlı karar alınabilecek kurumsal erişim senaryoları önerilir: Ar-Ge laboratuvarı, veri merkezi, teknopark prototip odası, savunma sanayi tedarikçisi veya private banking şube içi doğrulama alanı.',
   },
   {
     question: 'BİGG ve kuluçka desteği neden önemli?',
@@ -44,7 +39,7 @@ const roadmap = [
   ['Liveness Katmanı', 'Sahtecilik ve presentation attack risklerine karşı ilk testler yapılır.'],
   ['Güvenli Mimari', 'Biyometrik veri dışarı çıkmadan doğrulama sonucu üreten yapı tasarlanır.'],
   ['Kurumsal Pilot', 'Erişim kontrolü veya özel müşteri doğrulama senaryosu seçilir.'],
-  ['Kart Vizyonu', 'Teknoloji olgunlaştıktan sonra güvenli kart ve ödeme ortaklıkları değerlendirilir.'],
+  ['Lisanslama ve Ölçekleme', 'Teknoloji olgunlaştıkça entegratörler ve kurumsal iş ortaklarıyla ölçeklenir.'],
 ];
 
 const useCases = [
@@ -65,7 +60,7 @@ export default function Teknoloji() {
           <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">TEKNOLOJİ STRATEJİSİ</p>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Damar biyometrisi doğrulama altyapısı</h1>
           <p className="text-xl text-[#a1a1aa] mb-12 max-w-3xl leading-relaxed">
-            NEXIVO, kart üretimiyle başlamaz. İlk hedef; NIR tabanlı damar görüntüleme, cihaz üstü doğrulama, güvenli şablon mimarisi ve liveness katmanını teknik MVP ile kanıtlamaktır.
+            NEXIVO, NIR tabanlı damar görüntüleme, cihaz üstü doğrulama, güvenli şablon mimarisi ve liveness katmanını teknik MVP ile kanıtlamayı hedefler.
           </p>
         </div>
 
@@ -104,7 +99,7 @@ export default function Teknoloji() {
         <section className="mt-20">
           <div className="max-w-3xl mb-8">
             <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">ÜRÜNLEŞME ROTASI</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Kart vizyonu korunur, başlangıç altyapıdan yapılır</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Teknik kanıttan pilotlanabilir ürüne</h2>
             <p className="text-[#a1a1aa] text-lg leading-relaxed">
               NEXIVO’nun iş planındaki aşamalar, teknik riski azaltıp pilotlanabilir bir ürüne doğru ilerler.
             </p>
@@ -124,7 +119,7 @@ export default function Teknoloji() {
         <section className="mt-20 grid lg:grid-cols-[1fr_1.25fr] gap-8 items-start">
           <div>
             <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">İLK KULLANIM ALANLARI</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Öncelik ödeme kartı değil, yüksek güvenlikli kurumlar</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Yüksek güvenlikli kurumlar</h2>
             <p className="text-[#a1a1aa] text-lg leading-relaxed">
               İlk hedef kitle; hızlı pilot yapılabilecek, güvenlik ihtiyacı net olan ve cihaz üstü biyometrik doğrulamadan somut fayda görebilecek kurumlardır.
             </p>

@@ -3,7 +3,7 @@ import { Building2, Handshake, LineChart, Network, PackageCheck, Users } from 'l
 const businessPlanSections = [
   {
     title: 'Problem',
-    text: 'Şifre, PIN, kart bilgisi, yüz ve ses doğrulaması giderek daha kolay taklit ediliyor. Kurumlar, biyometrik veriyi dışarı çıkarmadan çalışan daha güçlü doğrulama katmanlarına ihtiyaç duyuyor.',
+    text: 'Şifre, PIN, yüz ve ses doğrulaması giderek daha kolay taklit ediliyor. Kurumlar, biyometrik veriyi dışarı çıkarmadan çalışan daha güçlü doğrulama katmanlarına ihtiyaç duyuyor.',
   },
   {
     title: 'Çözüm',
@@ -15,7 +15,7 @@ const businessPlanSections = [
   },
   {
     title: 'İlk Pazar',
-    text: 'Ödeme kartı yerine Ar-Ge merkezleri, veri merkezleri, savunma sanayi tedarikçileri, laboratuvarlar, private banking ve güvenlik entegratörleri hedeflenir.',
+    text: 'Ar-Ge merkezleri, veri merkezleri, savunma sanayi tedarikçileri, laboratuvarlar, private banking ve güvenlik entegratörleri hedeflenir.',
   },
 ];
 
@@ -48,10 +48,10 @@ const modelCanvas = [
     items: [
       'Damar biyometrisiyle zor taklit edilebilir doğrulama',
       'Biyometrik veriyi dışarı çıkarmayan cihaz üstü yaklaşım',
-      'Şifre, kart, yüz ve parmak izi risklerine güçlü alternatif',
+      'Şifre, yüz, ses ve parmak izi risklerine güçlü alternatif',
       'KVKK uyumlu veri minimizasyonu tasarımı',
       'Kurumsal erişim ve özel müşteri doğrulamasına modüler entegrasyon',
-      'Uzun vadede ödeme, dijital kimlik ve kart sistemlerine lisanslanabilir çekirdek teknoloji',
+      'Ödeme, dijital kimlik ve kurumsal güvenlik sistemlerine lisanslanabilir çekirdek teknoloji',
     ],
   },
   {
@@ -119,7 +119,7 @@ const modelCanvas = [
       'Entegrasyon ve kurulum hizmeti',
       'Bakım, güncelleme ve destek paketi',
       'Güvenlik entegratörlerine teknoloji lisansı',
-      'Uzun vadede kart, ödeme ve dijital kimlik ortaklıklarından lisans geliri',
+      'Ödeme, dijital kimlik ve kurumsal güvenlik ortaklıklarından lisans geliri',
     ],
   },
 ];
@@ -139,9 +139,9 @@ export default function Vizyon() {
       <div className="max-w-6xl mx-auto">
         <div className="max-w-4xl">
           <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">İŞ PLANI</p>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Kart değil, doğrulama altyapısı</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Damar biyometrisi doğrulama altyapısı</h1>
           <p className="text-xl leading-relaxed mb-10 text-[#d4d4d8]">
-            NEXIVO, damar biyometrisini ödeme kartıyla sınırlamaz. İlk hedef; yüksek güvenlikli kurumlar için cihaz üstü, gizlilik odaklı kimlik doğrulama altyapısı geliştirmek ve bunu teknik MVP ile kanıtlamaktır.
+            NEXIVO, yüksek güvenlikli kurumlar için cihaz üstü, gizlilik odaklı kimlik doğrulama altyapısı geliştirmeyi ve bunu teknik MVP ile kanıtlamayı hedefler.
           </p>
         </div>
 
@@ -164,7 +164,7 @@ export default function Vizyon() {
               NEXIVO’nun ilk işi satış ürünü çıkarmak değil; teknik kanıt üretmektir. NIR damar görüntüleme, eşleştirme, liveness ve güvenli şablon mimarisi kanıtlandıktan sonra modüler ürünleşme başlar.
             </p>
             <div className="space-y-3">
-              {['Teknik kanıt', 'Doğrulama motoru', 'Liveness ve güvenlik katmanı', 'Güvenli mimari', 'Kurumsal pilot', 'Modüler ürün', 'Kart vizyonu'].map((item, index) => (
+              {['Teknik kanıt', 'Doğrulama motoru', 'Liveness ve güvenlik katmanı', 'Güvenli mimari', 'Kurumsal pilot', 'Modüler ürün', 'Stratejik ortaklıklar'].map((item, index) => (
                 <div key={item} className="flex items-center gap-3 text-white">
                   <span className="w-7 h-7 rounded-full bg-accent-green/10 text-accent-green flex items-center justify-center text-sm font-bold">{index + 1}</span>
                   <span>{item}</span>
