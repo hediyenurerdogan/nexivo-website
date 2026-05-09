@@ -89,8 +89,8 @@ export default function Iletisim() {
     <div className="min-h-screen pt-[120px] pb-20 px-6 md:px-[5vw] bg-bg-dark">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">İletişim</h1>
-        <p className="text-xl text-[#a1a1aa] mb-16 max-w-2xl leading-relaxed">
-          Yatırımcı görüşmeleri, pilot iş birlikleri ve teknoloji doğrulama süreçleri için bizimle iletişime geçebilirsiniz.
+        <p className="text-xl text-[#a1a1aa] mb-16 max-w-3xl leading-relaxed">
+          Teknik mentor, kuluçka/TEKMER desteği, BİGG hazırlığı, kurumsal pilot ve yüksek güvenlikli doğrulama senaryoları için bizimle iletişime geçebilirsiniz.
         </p>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -179,7 +179,7 @@ export default function Iletisim() {
                   value={formData.subject}
                   onChange={handleChange}
                   className={`w-full bg-bg-dark border ${errors.subject ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors`}
-                  placeholder="Yatırım, pilot iş birliği veya teknik görüşme"
+                  placeholder="Mentorluk, kuluçka, BİGG, pilot iş birliği veya teknik görüşme"
                 />
                 {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
               </div>
@@ -192,7 +192,7 @@ export default function Iletisim() {
                   value={formData.message}
                   onChange={handleChange}
                   className={`w-full bg-bg-dark border ${errors.message ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors resize-none`}
-                  placeholder="NEXIVO ile hangi konuda görüşmek istersiniz?"
+                  placeholder="NEXIVO ile hangi konuda görüşmek istersiniz? Örneğin teknik mentorluk, pilot alanı, kuluçka desteği veya kurumsal doğrulama senaryosu."
                 ></textarea>
                 {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>

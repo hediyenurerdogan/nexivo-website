@@ -102,16 +102,16 @@ export default function Home() {
       </div>
 
       <div className="hero-content">
-        <p className="hero-kicker">NEXT-GENERATION BIOMETRIC SECURITY</p>
+        <p className="hero-kicker">VEIN BIOMETRIC IDENTITY INFRASTRUCTURE</p>
         <h1 className="hero-logo-heading">
           <img className="hero-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
         </h1>
         <p className="hero-subtitle">
-          Kopyalanamaz damar biyometrisiyle kimlik doğrulamayı yeniden tasarlayan erken aşama güvenlik girişimi.
+          Damar biyometrisini yüksek güvenlikli kurumlar için cihaz üstü, gizlilik odaklı kimlik doğrulama altyapısına dönüştüren erken aşama deep-tech girişimi.
         </p>
         <div className="hero-actions">
-          <a href="/tekmer.html" className="hero-primary-action">
-            Yatırımcı Sunumu
+          <a href="#/vizyon" className="hero-primary-action">
+            İş Planını İncele
           </a>
           <a href="#/teknoloji" className="hero-secondary-action">
             Teknolojiyi İncele

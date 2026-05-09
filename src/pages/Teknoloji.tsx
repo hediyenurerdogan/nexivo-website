@@ -1,61 +1,73 @@
-import { ChevronDown, Cpu, Fingerprint, ShieldCheck } from 'lucide-react';
+import { ChevronDown, Cpu, Fingerprint, FlaskConical, LockKeyhole, Radar, ShieldCheck } from 'lucide-react';
 
 const technicalQuestions = [
   {
-    question: 'Deri altı damar haritası teknik olarak tam olarak nasıl okunuyor?',
+    question: 'NEXIVO ilk aşamada ne geliştiriyor?',
     answer:
-      'Kartımızın içinde yer alan ve 850-940 nm dalga boyunda çalışan yakın kızılötesi (NIR) LED dizisi, parmağınız karta temas ettiğinde deri altına nüfuz eden güvenli bir ışık gönderir. Kandaki hemoglobinin bu ışığı emme oranı sayesinde deri altındaki eşsiz damar ağınızın net bir haritası çıkarılır. Bu harita, kartın üzerindeki Edge AI (ARM Cortex-M4F) işlemcimiz tarafından saniyeler içinde anlık olarak analiz edilerek eşleştirme işlemi doğrudan cihaz üzerinde gerçekleştirilir.',
+      'NEXIVO ilk aşamada ödeme kartı üretmez. İlk hedef, NIR tabanlı damar görüntüleme, şablon çıkarma, eşleştirme ve liveness kontrolünü çalışan bir teknik MVP ile doğrulamaktır. Kart vizyonu uzun vadede korunur; ancak çekirdek teknoloji önce kurumsal erişim ve yüksek güvenlikli kimlik doğrulama senaryolarında test edilir.',
   },
   {
-    question: 'Biyometrik verim kartın içinde nasıl depolanıyor ve çalınmaya karşı nasıl korunuyor?',
+    question: 'Damar biyometrisi teknik olarak nasıl okunur?',
     answer:
-      'NEXIVO, "Sıfır Güven" (Zero-Trust) mimarisi üzerine inşa edilmiştir. Biyometrik veriniz ham bir görsel olarak değil, matematiksel ve geri döndürülemez şifreli bir şablon olarak karttaki ISO/IEC 7816 standartlarına sahip "Güvenli Eleman" (Secure Element) katmanında saklanır. Doğrulama işlemi tamamen cihaz üstünde yapıldığı için biyometrik veriniz hiçbir zaman kartın dışına çıkmaz, bir okuyucu cihaza, banka sunucusuna veya buluta aktarılmaz. Bu "cihaz üstü" (on-device) gizlilik yaklaşımı sayesinde verinizin uzaktan veya fiziksel olarak kopyalanması imkansız hale getirilir.',
+      'Yakın kızılötesi ışık, parmak veya avuç içindeki damar dokusunun görünür hale gelmesini sağlar. Hemoglobin ışığı farklı emdiği için damar deseni görüntü işleme adımlarıyla ayrıştırılır. NEXIVO bu görüntüden ham görsel yerine matematiksel bir doğrulama şablonu üretmeyi hedefler.',
   },
   {
-    question: 'NEXIVO\'da "Sıfır Güven" (Zero-Trust) mimarisi tam olarak nasıl işliyor?',
+    question: 'Biyometrik veri nasıl korunur?',
     answer:
-      '"Sıfır Güven" prensibimiz gereği, kartımız iletişim kurduğu hiçbir dış cihaza, ağa veya POS terminaline peşinen güvenmez. Geleneksel sistemlerde parmak izi veya şifre verisi doğrulama için karşı sisteme iletilirken; NEXIVO\'da biyometrik okuma ve eşleştirme tamamen kartın içindeki yalıtılmış donanımda (Edge AI ve Güvenli Eleman) gerçekleşir. Dış dünyaya, yani ödeme terminaline veya erişim noktasına, sadece kriptografik olarak şifrelenmiş, tek kullanımlık bir "onay" sinyali gönderilir. Bu sayede işlem yapılan terminal hacklense bile, sistemde çalınabilecek veya kopyalanabilecek hiçbir kişisel veri bulunmaz.',
+      'Mimari, ham biyometrik görüntünün saklanmaması ve eşleştirmenin mümkün olduğunca cihaz üzerinde yapılması prensibine dayanır. Dış sistemlere biyometrik veri değil, yalnızca doğrulama sonucu veya kriptografik onay sinyali gönderilir. Bu yaklaşım KVKK, veri minimizasyonu ve kurumsal güvenlik ihtiyaçlarıyla uyumludur.',
   },
   {
-    question: '5 farklı katman 0.76 mm standart kart inceliğine nasıl sığacak?',
+    question: 'Neden önce kart değil doğrulama altyapısı?',
     answer:
-      'Geleneksel sert devre kartları yerine giyilebilir teknolojilerde de tercih edilen "Esnek Baskılı Devre Kartları (Flexible PCB)" kullanıyoruz. Mikroçiplerde ise endüstri standardı ultra-ince paketlemeler (ultra-thin SoC) tercih edilerek boyut ve esneklik optimizasyonu sağlanmaktadır.',
+      'Ödeme kartı form faktörü; optik donanım, enerji, sertifikasyon, bankacılık entegrasyonu ve üretim maliyeti açısından en zor başlangıç noktasıdır. NEXIVO önce damar biyometrisi doğrulama çekirdeğini kanıtlar; ardından bu çekirdeği erişim kontrolü, private banking, dijital kimlik ve uzun vadede kart uygulamalarına taşır.',
   },
   {
-    question: 'Çip krizi ve tedarik zinciri sorunlarından nasıl etkileniyorsunuz?',
+    question: 'Liveness / sahtecilik tespiti ürünün neresinde?',
     answer:
-      'Tasarımımızda baştan sona özel üretim bir çip (ASIC) yerine, pazarda tedariği nispeten daha stabil olan ARM Cortex tabanlı standart işlemciler kullanılmıştır. İlk TRL aşamalarımızda üretim hacmimiz düşük olacağı için majör bir darboğaz öngörmüyoruz.',
+      'Liveness, ilk MVP’den itibaren teknik risk alanı olarak ele alınır. Amaç yalnızca damar deseni görmek değil; basılı görsel, ekran, yapay parmak veya statik sahte örneklere karşı dayanıklılığı ölçmektir. Bu nedenle presentation attack detection testleri doğrulama motorunun parçasıdır.',
   },
   {
-    question: 'Biyometrik verilerin gizliliği ve KVKK/GDPR uyumluluğu nasıl sağlanıyor?',
+    question: 'İlk pilot nerede yapılmalı?',
     answer:
-      'NEXIVO "Sıfır Güven" (Zero-Trust) mimarisiyle çalışır. Damar haritanız banka sunucularına veya buluta asla gönderilmez. Veri eşleştirme işlemi tamamen cihaz üzerinde (Edge AI) gerçekleşir ve dışarıya sadece "Doğrulandı" veya "Reddedildi" sinyali iletilir.',
+      'İlk pilot için banka ödeme altyapısı yerine daha hızlı karar alınabilecek kurumsal erişim senaryoları önerilir: Ar-Ge laboratuvarı, veri merkezi, teknopark prototip odası, savunma sanayi tedarikçisi veya private banking şube içi doğrulama alanı.',
   },
   {
-    question: 'Kartın üretim maliyetleri bankalar için dezavantaj yaratmayacak mı?',
+    question: 'BİGG ve kuluçka desteği neden önemli?',
     answer:
-      'Yüksek teknoloji barındırdığı için üretim maliyeti standart kartlardan yüksektir. Bu nedenle pazara giriş (Go-To-Market) stratejimiz standart perakende bankacılık değil; yüksek güvenlik gerektiren Private Banking (Özel Bankacılık) müşterileri, VIP portföyler ve kurumsal erişim altyapılarıdır.',
+      'NEXIVO donanım, görüntü işleme, güvenlik, KVKK ve kurumsal entegrasyonu aynı anda gerektiren bir deep-tech girişimidir. TEKMER/kuluçka desteği; teknik mentor, ofis, laboratuvar bağlantısı, pilot kurum erişimi ve TÜBİTAK 1812/BİGG hazırlığı için kritik kaldıraç sağlar.',
   },
-  {
-    question: 'Bu projenin ortalama maliyeti neye göre belirlenir?',
-    answer:
-      'NEXIVO’da maliyet yalnızca tek bir kartın üretim bedeliyle değil; esnek PCB tasarımı, NIR LED dizisi, güvenli eleman, ARM tabanlı işlemci, Edge AI yazılımı, prototip iterasyonları, laboratuvar testleri ve pilot entegrasyon süreçleriyle birlikte değerlendirilir. İlk Ar-Ge ve düşük adetli prototip aşamalarında birim maliyet doğal olarak yüksektir. Hedefimiz, teknik doğrulama ve pilotlardan sonra üretim tasarımını sadeleştirerek maliyeti seçili yüksek güvenlik segmentleri için sürdürülebilir seviyeye indirmektir.',
-  },
-  {
-    question: 'Ar-Ge aşamasında neden yatırım desteğine ihtiyacımız var?',
-    answer:
-      'NEXIVO yalnızca bir yazılım fikri değil; donanım, biyometrik okuma, güvenli veri saklama, cihaz üstü yapay zeka ve kurumsal entegrasyonu aynı üründe birleştiren derin teknoloji girişimidir. Yatırım desteği; prototip üretimi, elektronik tasarım iterasyonları, güvenlik testleri, yazılım geliştirme, fikri mülkiyet hazırlığı ve pilot kurumlarla doğrulama süreçlerini hızlandırır. Bu destek sayesinde ürün riski azalır, TRL seviyesi yükselir ve yatırımcılar ile stratejik ortaklara gösterilebilir somut bir demo/pilot çıktısı oluşur.',
-  },
+];
+
+const roadmap = [
+  ['Teknik Kanıt', 'NIR damar görüntüleme ve temel eşleştirme kontrollü ortamda doğrulanır.'],
+  ['Doğrulama Motoru', 'Kayıt, şablon çıkarma, eşleştirme ve hata metrikleri geliştirilir.'],
+  ['Liveness Katmanı', 'Sahtecilik ve presentation attack risklerine karşı ilk testler yapılır.'],
+  ['Güvenli Mimari', 'Biyometrik veri dışarı çıkmadan doğrulama sonucu üreten yapı tasarlanır.'],
+  ['Kurumsal Pilot', 'Erişim kontrolü veya özel müşteri doğrulama senaryosu seçilir.'],
+  ['Kart Vizyonu', 'Teknoloji olgunlaştıktan sonra güvenli kart ve ödeme ortaklıkları değerlendirilir.'],
+];
+
+const useCases = [
+  'Ar-Ge merkezleri ve teknoparklar',
+  'Savunma sanayi tedarikçileri',
+  'Veri merkezleri ve kritik altyapı',
+  'Laboratuvarlar ve ilaç Ar-Ge alanları',
+  'Private banking müşteri doğrulaması',
+  'Fintech ve dijital kimlik şirketleri',
+  'Güvenlik entegratörleri',
 ];
 
 export default function Teknoloji() {
   return (
     <div className="min-h-screen pt-[120px] pb-20 px-6 md:px-[5vw] bg-bg-dark">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Teknoloji</h1>
-        <p className="text-xl text-[#a1a1aa] mb-16 max-w-3xl leading-relaxed">
-          NEXIVO, kopyalanabilir yüzey biyometrileri yerine damar yapısına dayanan, pilot uygulamalarla doğrulanabilir yeni nesil kimlik doğrulama altyapısı geliştirir.
-        </p>
+      <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl">
+          <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">TEKNOLOJİ STRATEJİSİ</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Damar biyometrisi doğrulama altyapısı</h1>
+          <p className="text-xl text-[#a1a1aa] mb-12 max-w-3xl leading-relaxed">
+            NEXIVO, kart üretimiyle başlamaz. İlk hedef; NIR tabanlı damar görüntüleme, cihaz üstü doğrulama, güvenli şablon mimarisi ve liveness katmanını teknik MVP ile kanıtlamaktır.
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           <div className="bg-card-dark p-8 rounded-2xl border border-border-subtle hover:border-accent-green transition-colors duration-300">
@@ -64,7 +76,7 @@ export default function Teknoloji() {
             </div>
             <h3 className="text-2xl font-bold text-white mb-4">Damar Biyometrisi</h3>
             <p className="text-[#a1a1aa] leading-relaxed">
-              Sistem, parmak izi veya yüz gibi yüzeyden kopyalanabilen işaretler yerine deri altındaki damar desenlerini analiz etmeyi hedefler. Bu yaklaşım finans, erişim kontrolü ve yüksek güvenlikli kimlik doğrulama senaryoları için tasarlanmıştır.
+              Parmak izi veya yüz gibi yüzeyden kopyalanabilen işaretler yerine deri altındaki damar desenleri analiz edilir. Amaç, kopyalanması daha zor bir biyometrik sinyali doğrulama altyapısına dönüştürmektir.
             </p>
           </div>
 
@@ -72,29 +84,67 @@ export default function Teknoloji() {
             <div className="w-14 h-14 bg-accent-purple/10 rounded-xl flex items-center justify-center mb-6">
               <Cpu className="text-accent-purple" size={32} />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Cihaz Üstü İşleme</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Cihaz Üstü Doğrulama</h3>
             <p className="text-[#a1a1aa] leading-relaxed">
-              Mimari, biyometrik eşleştirmeyi mümkün olduğunca cihaz üzerinde tutacak şekilde kurgulanır. Bu sayede gizlilik, gecikme ve kurumsal entegrasyon gereksinimleri erken aşamadan itibaren ürün tasarımına dahil edilir.
+              Eşleştirme mümkün olduğunca cihaz üzerinde yapılır. Böylece gizlilik, gecikme, KVKK uyumu ve kurumsal entegrasyon gereksinimleri ürün tasarımına en baştan dahil edilir.
             </p>
           </div>
 
           <div className="bg-card-dark p-8 rounded-2xl border border-border-subtle hover:border-accent-green transition-colors duration-300">
             <div className="w-14 h-14 bg-accent-green/10 rounded-xl flex items-center justify-center mb-6">
-              <ShieldCheck className="text-accent-green" size={32} />
+              <FlaskConical className="text-accent-green" size={32} />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Doğrulanabilir Yol Haritası</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Doğrulanabilir MVP</h3>
             <p className="text-[#a1a1aa] leading-relaxed">
-              NEXIVO, teknolojisini yatırımcılar ve stratejik iş ortaklarıyla ölçülebilir pilotlar üzerinden büyütmeyi amaçlar: güvenlik doğrulaması, kullanıcı deneyimi ve entegrasyon kabiliyeti aynı anda test edilir.
+              İlk çıktı satış ürünü değil; damar görüntüsü, tekrar tanıma, farklı kişi ayrımı, liveness ve güvenli şablon yaklaşımını belgeleyen gösterilebilir bir prototiptir.
             </p>
           </div>
         </div>
 
         <section className="mt-20">
           <div className="max-w-3xl mb-8">
-            <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">TEKNİK SORULAR</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Yatırımcıların Merak Ettikleri</h2>
+            <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">ÜRÜNLEŞME ROTASI</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Kart vizyonu korunur, başlangıç altyapıdan yapılır</h2>
             <p className="text-[#a1a1aa] text-lg leading-relaxed">
-              Kart mimarisi, tedarik, veri gizliliği ve pazara giriş stratejisiyle ilgili temel cevaplar.
+              NEXIVO’nun iş planındaki aşamalar, teknik riski azaltıp pilotlanabilir bir ürüne doğru ilerler.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {roadmap.map(([title, description], index) => (
+              <div key={title} className="bg-card-dark/80 border border-border-subtle rounded-xl p-6">
+                <div className="text-accent-green font-bold text-sm mb-3">Aşama {index + 1}</div>
+                <h3 className="text-white text-xl font-bold mb-3">{title}</h3>
+                <p className="text-[#a1a1aa] leading-relaxed">{description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20 grid lg:grid-cols-[1fr_1.25fr] gap-8 items-start">
+          <div>
+            <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">İLK KULLANIM ALANLARI</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Öncelik ödeme kartı değil, yüksek güvenlikli kurumlar</h2>
+            <p className="text-[#a1a1aa] text-lg leading-relaxed">
+              İlk hedef kitle; hızlı pilot yapılabilecek, güvenlik ihtiyacı net olan ve cihaz üstü biyometrik doğrulamadan somut fayda görebilecek kurumlardır.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {useCases.map((item) => (
+              <div key={item} className="flex items-center gap-3 bg-card-dark border border-border-subtle rounded-xl p-4">
+                <Radar className="text-accent-purple shrink-0" size={20} />
+                <span className="text-white font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className="max-w-3xl mb-8">
+            <p className="text-accent-green font-bold tracking-[2px] text-sm mb-3">TEKNİK SORULAR</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">MVP, gizlilik ve pilot odağı</h2>
+            <p className="text-[#a1a1aa] text-lg leading-relaxed">
+              Bu bölüm NEXIVO’nun iş planındaki problem, çözüm, teknik MVP ve pazara giriş yaklaşımıyla birebir uyumludur.
             </p>
           </div>
 
@@ -110,6 +160,20 @@ export default function Teknoloji() {
                 </div>
               </details>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-20 bg-card-dark border border-border-subtle rounded-2xl p-8 md:p-10">
+          <div className="flex items-start gap-4">
+            <div className="bg-accent-green/10 p-3 rounded-xl">
+              <LockKeyhole className="text-accent-green" size={26} />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Güvenlik dili</h2>
+              <p className="text-[#a1a1aa] text-lg leading-relaxed">
+                NEXIVO, “imkansız” gibi mutlak iddialar yerine daha savunulabilir bir güvenlik dili kullanır: damar biyometrisi, yüzey biyometrilerine göre daha zor taklit edilebilir; veri minimizasyonu ve cihaz üstü eşleştirme ile gizlilik riski azaltılır; liveness testleriyle sahtecilik dayanıklılığı ölçülür.
+              </p>
+            </div>
           </div>
         </section>
       </div>
