@@ -10,14 +10,14 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed w-full top-0 z-[100] flex justify-between items-center px-6 md:px-[5vw] py-3 md:py-4 border-b border-border-subtle bg-bg-dark/80 backdrop-blur-md box-border transition-all duration-300">
+    <nav className="fixed w-full top-0 z-[100] flex justify-between items-center gap-4 px-6 md:px-[5vw] py-3 md:py-4 border-b border-border-subtle bg-bg-dark/80 backdrop-blur-md box-border transition-all duration-300">
       <div className="flex-1 flex justify-start">
         <Link to="/" onClick={closeMenu} className="navbar-logo-link" aria-label="NEXIVO ana sayfa">
           <img className="navbar-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
         </Link>
       </div>
 
-      <div className="hidden md:flex justify-center gap-8 items-center flex-1">
+      <div className="hidden md:flex justify-center gap-8 items-center flex-1 whitespace-nowrap">
         <Link
           to="/teknoloji"
           className={`no-underline font-medium transition-colors duration-300 hover:text-white ${isActive('/teknoloji') ? 'text-white' : 'text-[#a1a1aa]'}`}
@@ -39,6 +39,12 @@ export default function Navbar() {
       </div>
 
       <div className="flex-1 flex justify-end items-center gap-4">
+        <a
+          href="https://demo.nexivotr.com/"
+          className="hidden md:inline-block text-accent-green font-semibold whitespace-nowrap hover:text-white"
+        >
+          Demoyu dene
+        </a>
         <Link
           to="/vizyon"
           className="hidden md:inline-block bg-accent-green/10 text-accent-green border border-accent-green px-5 py-2 rounded-lg font-semibold animate-pulse-border hover:bg-accent-green hover:text-black transition-all duration-300 whitespace-nowrap"
@@ -60,6 +66,7 @@ export default function Navbar() {
           <Link to="/teknoloji" onClick={closeMenu} className={`text-lg font-medium transition-colors ${isActive('/teknoloji') ? 'text-white' : 'text-[#a1a1aa] hover:text-white'}`}>Teknoloji</Link>
           <Link to="/vizyon" onClick={closeMenu} className={`text-lg font-medium transition-colors ${isActive('/vizyon') ? 'text-white' : 'text-[#a1a1aa] hover:text-white'}`}>İş Planı</Link>
           <Link to="/iletisim" onClick={closeMenu} className={`text-lg font-medium transition-colors ${isActive('/iletisim') ? 'text-white' : 'text-[#a1a1aa] hover:text-white'}`}>İletişim</Link>
+          <a href="https://demo.nexivotr.com/" onClick={closeMenu} className="text-lg font-semibold text-accent-green hover:text-white">Demoyu dene</a>
           <Link
             to="/vizyon"
             onClick={closeMenu}
