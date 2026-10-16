@@ -530,3 +530,46 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+.demo-disclosure {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 32px;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  background: #102a27;
+  color: #c6fff6;
+  font-size: 12px;
+  font-weight: 600;
+}
+.nexivo-hero { height: auto; min-height: 100svh; padding: 144px 24px 40px; }
+.hero-logo-image { max-width: 100%; }
+.hero-demo-note { max-width: 660px; margin: 24px auto 0; color: #b3c4c6; font-size: 14px; line-height: 1.7; }
+.content-page { min-height: 100vh; padding: 152px max(24px, 5vw) 80px; background: #03070b; }
+.page-title { color: white; font-size: clamp(2rem, 4vw, 3.6rem); font-weight: 700; line-height: 1.15; margin: 0 0 24px; }
+.page-lead { max-width: 800px; color: #b4bdc5; font-size: 20px; line-height: 1.7; margin-bottom: 48px; }
+.section-kicker { color: #31e6b5; font-weight: 700; font-size: 13px; letter-spacing: .12em; margin-bottom: 14px; }
+.section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); color: white; font-weight: 700; line-height: 1.25; margin-bottom: 24px; }
+.section-lead { max-width: 800px; color: #b4bdc5; line-height: 1.7; margin-bottom: 28px; }
+.plan-card { min-width: 0; background: #111827; border: 1px solid #263241; border-radius: 16px; padding: clamp(22px, 3vw, 32px); }
+.plan-card h2, .plan-card h3 { color: white; font-size: 21px; line-height: 1.35; font-weight: 700; margin-bottom: 14px; }
+.plan-card p, .plan-list { color: #b4bdc5; line-height: 1.8; }
+.plan-list { list-style: disc; padding-left: 20px; }
+.plan-list li + li { margin-top: 10px; }
+.plan-list li::marker { color: #31e6b5; }
+.flow-list { border-top: 1px solid #263241; }
+.flow-list > li { display: flex; gap: clamp(16px, 4vw, 40px); padding: 28px 0; border-bottom: 1px solid #263241; }
+.flow-number { color: #31e6b5; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+.flow-list h3 { font-size: 21px; color: white; font-weight: 600; margin-bottom: 10px; }
+.flow-list p { color: #b4bdc5; max-width: 880px; line-height: 1.8; }
+#yol-haritasi { scroll-margin-top: 140px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #31e6b5; outline-offset: 5px; }
+@media (max-width: 480px) {
+  .content-page { padding-top: 128px; }
+  .page-lead { font-size: 18px; }
+  .hero-kicker { letter-spacing: .1em; }
+  #mobile-menu { max-height: calc(100svh - 100px); overflow-y: auto; }
+}

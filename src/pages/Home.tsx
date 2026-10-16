@@ -102,21 +102,22 @@ export default function Home() {
       </div>
 
       <div className="hero-content">
-        <p className="hero-kicker">VEIN BIOMETRIC IDENTITY INFRASTRUCTURE</p>
+        <p className="hero-kicker">MAĞAZADAN NAKİT FİKRİNİ BİRLİKTE DENEYELİM</p>
         <h1 className="hero-logo-heading">
           <img className="hero-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
         </h1>
         <p className="hero-subtitle">
-          Damar biyometrisini yüksek güvenlikli kurumlar için cihaz üstü, gizlilik odaklı kimlik doğrulama altyapısına dönüştüren erken aşama deep-tech girişimi.
+          Nakit talebini mağazaya ulaştıran, mağaza onayıyla süreli rezervasyon oluşturan bir ürün demosu. Talep edin, onayı bekleyin, kodla denemeyi tamamlayın.
         </p>
         <div className="hero-actions">
-          <a href="#/vizyon" className="hero-primary-action">
-            İş Planını İncele
+          <a href="https://demo.nexivotr.com/" className="hero-primary-action">
+            Demoyu dene
           </a>
-          <a href="#/teknoloji" className="hero-secondary-action">
-            Teknolojiyi İncele
+          <a href="#/vizyon" className="hero-secondary-action">
+            İş planını incele
           </a>
         </div>
+        <p className="hero-demo-note">Gerçek para veya nakit teslimi yoktur. Mağazalar örnektir; finansal ortaklık ve saha pilotu sonraki aşamadır.</p>
       </div>
     </section>
   );

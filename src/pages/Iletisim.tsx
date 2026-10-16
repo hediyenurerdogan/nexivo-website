@@ -68,7 +68,8 @@ export default function Iletisim() {
         }),
       });
 
-      if (!response.ok) {
+      const result = await response.json();
+      if (!response.ok || (result.success !== true && result.success !== 'true')) {
         throw new Error('Message request failed');
       }
 
@@ -86,11 +87,11 @@ export default function Iletisim() {
   };
 
   return (
-    <div className="min-h-screen pt-[120px] pb-20 px-6 md:px-[5vw] bg-bg-dark">
+    <div className="content-page">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">İletişim</h1>
         <p className="text-xl text-[#a1a1aa] mb-16 max-w-3xl leading-relaxed">
-          Teknik mentor, kuluçka/TEKMER desteği, BİGG hazırlığı, kurumsal pilot ve yüksek güvenlikli doğrulama senaryoları için bizimle iletişime geçebilirsiniz.
+          Mağaza görüşmesi, demo geri bildirimi veya finansal ortaklık değerlendirmesi için bize yazabilirsiniz. Gerçek para içeren saha pilotu henüz başlamadı; önce birlikte ihtiyacı ve koşulları netleştirmek istiyoruz.
         </p>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -132,10 +133,11 @@ export default function Iletisim() {
 
           <div className="bg-card-dark p-8 rounded-2xl border border-border-subtle">
             <h3 className="text-2xl font-bold text-white mb-6">Bize Yazın</h3>
+            <p className="text-[#a1a1aa] mb-6 leading-relaxed">Bu form iş birliği ve geri bildirim içindir; nakit talebi oluşturmaz. Kimlik, IBAN veya kart bilgisi paylaşmayın. Mesaj, mevcut FormSubmit hizmeti aracılığıyla iletilir.</p>
             <form className="space-y-4" onSubmit={handleSubmit}>
               {isSuccess && (
                 <div className="bg-accent-green/10 border border-accent-green text-accent-green px-4 py-3 rounded-lg mb-4 font-medium">
-                  Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
+                  Gönderim hizmeti mesajınızı kabul etti. Bu bildirim, e-postanın okunduğu veya bir iş birliğinin onaylandığı anlamına gelmez.
                 </div>
               )}
 
@@ -179,7 +181,7 @@ export default function Iletisim() {
                   value={formData.subject}
                   onChange={handleChange}
                   className={`w-full bg-bg-dark border ${errors.subject ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors`}
-                  placeholder="Mentorluk, kuluçka, BİGG, pilot iş birliği veya teknik görüşme"
+                  placeholder="Mağaza görüşmesi, finansal ortaklık veya demo geri bildirimi"
                 />
                 {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
               </div>
@@ -192,7 +194,7 @@ export default function Iletisim() {
                   value={formData.message}
                   onChange={handleChange}
                   className={`w-full bg-bg-dark border ${errors.message ? 'border-red-500' : 'border-border-subtle'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent-green transition-colors resize-none`}
-                  placeholder="NEXIVO ile hangi konuda görüşmek istersiniz? Örneğin teknik mentorluk, pilot alanı, kuluçka desteği veya kurumsal doğrulama senaryosu."
+                  placeholder="Mağaza süreçlerinizi, demo deneyiminizi veya birlikte değerlendirmek istediğiniz konuyu paylaşın."
                 ></textarea>
                 {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
