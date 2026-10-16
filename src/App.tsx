@@ -16,7 +16,7 @@ function App() {
     return () => cancelAnimationFrame(frame);
   }, [location]);
   return (
-    <div className="min-h-screen bg-bg-dark text-text-light font-sans overflow-x-hidden selection:bg-accent-purple selection:text-white">
+    <div className="min-h-screen bg-white text-text-light font-sans">
       <div className="demo-disclosure">Demo — gerçek para işlemi yapılmaz</div>
       <Navbar />
       
@@ -28,7 +28,7 @@ function App() {
           <Route path="/vizyon" element={<Vizyon />} />
           <Route path="/iletisim" element={<Iletisim />} />
         </Routes>
-      </main>
+      </main><footer className="site-footer"><div className="shell footer-inner"><p>NEXIVO · Mağazadan nakit fikrini birlikte deneyelim.<br />Demo — gerçek para işlemi yapılmaz.</p><div className="footer-links"><a href="#/vizyon#yol-haritasi">Yol haritası ↗</a><a href="#/iletisim">İletişim ↗</a></div></div></footer>
     </div>
   );
 }

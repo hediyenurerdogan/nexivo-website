@@ -1,124 +1,29 @@
-import type { CSSProperties } from 'react';
-
-const platformRings = Array.from({ length: 5 }, (_, index) => index);
-const platformSpokes = Array.from({ length: 28 }, (_, index) => index);
-const lightBeams = Array.from({ length: 22 }, (_, index) => index);
-const orbitDots = Array.from({ length: 34 }, (_, index) => index);
-const dataDots = Array.from({ length: 44 }, (_, index) => index);
-
-const ringStyle = (index: number): CSSProperties => ({
-  '--ring-inset': `${index * 8.5}%`,
-} as CSSProperties);
-
-const spokeStyle = (index: number): CSSProperties => ({
-  '--spoke-angle': `${index * 12.857}deg`,
-} as CSSProperties);
-
-const dataDotStyle = (index: number): CSSProperties => ({
-  '--dot-x': `${(index % 11) * 8.5}%`,
-  '--dot-y': `${(index % 7 - 3) * 13}px`,
-  '--dot-y-alt': `${(index % 7 - 3) * -11}px`,
-  '--dot-delay': `${index * -0.08}s`,
-} as CSSProperties);
-
-const orbitDotStyle = (index: number): CSSProperties => ({
-  '--dot-angle': `${index * 21}deg`,
-  '--dot-radius': `${138 + (index % 7) * 28}px`,
-  '--dot-lift': `${(index % 5) * 8}px`,
-  '--dot-delay': `${index * -0.13}s`,
-} as CSSProperties);
-
-const beamStyle = (index: number): CSSProperties => ({
-  '--beam-height': `${185 + (index % 8) * 30}px`,
-  '--beam-height-mobile': `${(185 + (index % 8) * 30) * 0.72}px`,
-  '--beam-angle': `${-42 + index * 4}deg`,
-  '--beam-angle-active': `${-47 + index * 4.35}deg`,
-  '--beam-x': `${(index % 5 - 2) * 12}px`,
-  '--beam-delay': `${index * -0.18}s`,
-  '--bead-delay': `${index * -0.21}s`,
-} as CSSProperties);
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, ArrowRight, Check, Store, Clock3, ShieldCheck, Smartphone } from 'lucide-react';
 
 export default function Home() {
-  return (
-    <section className="nexivo-hero">
-      <div className="hero-ambient" aria-hidden="true" />
-      <div className="hero-data-wave hero-data-wave-left" aria-hidden="true">
-        {dataDots.map((dot) => (
-          <span key={`left-${dot}`} style={dataDotStyle(dot)} />
-        ))}
+  return <>
+    <section className="landing-hero shell">
+      <div className="hero-copy">
+        <p className="eyebrow"><span /> MAĞAZADAN NAKİT · ÜRÜN DEMOSU</p>
+        <h1>Önce talep.<br />Sonra onay.<br /><span>Her adım net.</span></h1>
+        <p className="intro">Nakit alma fikrini mahallenin mağazalarıyla yeniden düşünelim. Talebini ilet, mağazanın yanıtını gör, süreli rezervasyonunu takip et.</p>
+        <div className="action-row"><a className="button primary" href="https://demo.nexivotr.com/">Demoyu dene <ArrowUpRight size={21} /></a><Link className="text-link" to="/nasil-calisir">Nasıl çalışır? <ArrowRight size={18} /></Link></div>
+        <p className="small-note"><ShieldCheck size={17} /> Gerçek para, banka hesabı veya kart bilgisi kullanılmaz.</p>
       </div>
-      <div className="hero-data-wave hero-data-wave-right" aria-hidden="true">
-        {dataDots.map((dot) => (
-          <span key={`right-${dot}`} style={dataDotStyle(dot)} />
-        ))}
-      </div>
-
-      <div className="hero-stage" aria-hidden="true">
-        <div className="hologram-platform">
-          <div className="platform-glow" />
-          {platformRings.map((ring) => (
-            <span
-              key={ring}
-              className="platform-ring"
-              style={ringStyle(ring)}
-            />
-          ))}
-          {platformSpokes.map((spoke) => (
-            <span
-              key={spoke}
-              className="platform-spoke"
-              style={spokeStyle(spoke)}
-            />
-          ))}
-          {orbitDots.map((dot) => (
-            <span
-              key={dot}
-              className="platform-dot"
-              style={orbitDotStyle(dot)}
-            />
-          ))}
-        </div>
-
-        <div className="light-field">
-          {lightBeams.map((beam) => (
-            <span
-              key={beam}
-              className="light-beam"
-              style={beamStyle(beam)}
-            />
-          ))}
-        </div>
-
-        <div className="cube-wrap">
-          <div className="nexivo-cube">
-            <span className="cube-face cube-face-front" />
-            <span className="cube-face cube-face-back" />
-            <span className="cube-face cube-face-right" />
-            <span className="cube-face cube-face-left" />
-            <span className="cube-face cube-face-top" />
-            <span className="cube-face cube-face-bottom" />
-          </div>
-        </div>
-      </div>
-
-      <div className="hero-content">
-        <p className="hero-kicker">MAĞAZADAN NAKİT FİKRİNİ BİRLİKTE DENEYELİM</p>
-        <h1 className="hero-logo-heading">
-          <img className="hero-logo-image" src="/nexivo-logo-hero.png" alt="NEXIVO" />
-        </h1>
-        <p className="hero-subtitle">
-          Nakit talebini mağazaya ulaştıran, mağaza onayıyla süreli rezervasyon oluşturan bir ürün demosu. Talep edin, onayı bekleyin, kodla denemeyi tamamlayın.
-        </p>
-        <div className="hero-actions">
-          <a href="https://demo.nexivotr.com/" className="hero-primary-action">
-            Demoyu dene
-          </a>
-          <a href="#/vizyon" className="hero-secondary-action">
-            İş planını incele
-          </a>
-        </div>
-        <p className="hero-demo-note">Gerçek para veya nakit teslimi yoktur. Mağazalar örnektir; finansal ortaklık ve saha pilotu sonraki aşamadır.</p>
+      <div className="journey-visual" aria-label="Örnek demo akışı">
+        <div className="visual-top"><span>BİR TALEBİN YOLCULUĞU</span><span>ÖRNEK AKIŞ</span></div>
+        <div className="request-paper"><div className="paper-heading"><span className="icon-box"><Store size={25} /></span><div><strong>Demo Market A</strong><span>Örnek mağaza</span></div><span className="sample-label">DEMO</span></div><p className="amount-label">Talep edilen demo tutarı</p><div className="demo-amount">500 <span>TL</span></div><div className="paper-line" /><div className="approval"><span className="check-circle"><Check size={18} /></span><div><strong>Mağaza onayladı</strong><p>Rezervasyon onayla başlar.</p></div></div><div className="reservation"><Clock3 size={18} /><span>10 dakika rezervasyon</span><span>→</span></div></div>
+        <div className="journey-caption"><span className="caption-arrow">↗</span><div><strong>İki ekran. Aynı süreç.</strong><p>Müşteri ve mağaza, adım adım birlikte.</p></div></div>
+        <p className="visual-disclaimer">Temsili görünüm · Gerçek işlem veya canlı rezervasyon değildir.</p>
       </div>
     </section>
-  );
+    <section className="steps-section"><div className="shell"><div className="section-heading"><div><p className="eyebrow">KARMAŞIK OLMASINA GEREK YOK</p><h2>Birlikte, üç adımda.</h2></div><Link className="text-link" to="/nasil-calisir">Tüm akışı incele <ArrowUpRight size={20} /></Link></div><div className="step-grid">{[
+      ['01','Talebini ilet.','Örnek mağazayı seç, demo tutarını belirle. Aynı anda tek aktif talebini takip et.',Smartphone],
+      ['02','Onayı bekle.','Mağaza kabul ettiğinde süreli rezervasyon oluşur. Onay gelmeden yola çıkma.',Store],
+      ['03','Kodla tamamla.','Görevli kodunu doğrulasın, ardından ayrı bir adımla demo teslimini tamamlasın.',Check],
+    ].map(([n,title,description,Icon]) => { const StepIcon = Icon as typeof Check; return <article className="step-card" key={String(n)}><div className="step-top"><span>{String(n)}</span><StepIcon size={26} /></div><h3>{String(title)}</h3><p>{String(description)}</p></article>; })}</div></div></section>
+    <section className="shell next-section"><div><p className="eyebrow">BUGÜN DEMO. YARIN, BİRLİKTE DOĞRULAMA.</p><h2>Çalışan bir süreç.<br />Birlikte atılan ilk adım.</h2></div><div><p>Müşteri talebini mağazaya ulaştırabiliyoruz. Mağaza süreli olarak kabul edebiliyor; iki taraf da süreci takip edebiliyor.</p><p>Finansal ortaklık ve gerçek para içeren saha pilotu sonraki aşama. Bugün örnek mağazalarla, gerçek para kullanmadan deniyoruz.</p><Link className="text-link" to="/vizyon">İş planımızı keşfet <ArrowUpRight size={20} /></Link></div></section>
+    <section className="shell"><div className="contact-band"><div><p className="eyebrow">BİRLİKTE GELİŞTİRELİM</p><h2>Mağazanızın görüşü değerli.</h2><p>İhtiyacı, mağaza süreçlerini ve pilot fikrini konuşalım.</p></div><Link to="/iletisim" className="button primary">İletişime geç <ArrowUpRight size={20} /></Link></div></section>
+  </>;
 }

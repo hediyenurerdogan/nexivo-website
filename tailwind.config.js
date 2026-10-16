@@ -9,12 +9,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'bg-dark': '#09090b',
-        'text-light': '#f4f4f5',
-        'accent-green': '#10b981',
-        'accent-purple': '#8b5cf6',
-        'card-dark': '#18181b',
-        'border-subtle': '#27272a',
+        'bg-dark': '#f7f8f7',
+        'text-light': '#123e45',
+        'accent-green': '#ba492a',
+        'accent-purple': '#ba492a',
+        'card-dark': '#ffffff',
+        'border-subtle': '#dce4e3',
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
