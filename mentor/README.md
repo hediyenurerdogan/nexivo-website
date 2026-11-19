@@ -15,11 +15,11 @@ Bu sürüm ayrı `/mobil-demo/` yoludur. Ana sitenin index.html, assets, menüle
 
 ## İki dakikalık mentör sunumu
 - 0:00–0:20: “Demoyu başlat”, 500 TL seç. Ankara'daki kurgusal noktaları ve örnek haritayı göster.
-- 0:20–0:40: Demo Market A detayını aç. Hizmet bedeli 0 TL ve rezervasyon öncesi onay uyarısını göster. Demo talebini gönder.
+- 0:20–0:40: Demo Market A detayını aç. Hizmet bedelinin henüz belirlenmediğini ve rezervasyon öncesi uyarıyı göster. Talep gönder.
 - 0:40–1:00: Üstte İşletme demosu → “10 dakika ayır ve kabul et”. Kapasite 3.000, ayrılan 500, kullanılabilir 2.500 TL.
-- 1:00–1:20: Müşteri → İşlemler. Onay ekranını, 10 dakikalık sayacı, QR ve kısa kodu göster. Kodu kopyala.
-- 1:20–1:40: İşletmeye geç, kodu yapıştır, “Kodu doğrula”. Bunun teslimi tamamlamadığını göster. Ardından “Demo nakit teslimini tamamla”. Kapasite 2.500, ayrılan 0 TL olur.
-- 1:40–2:00: Müşteri → İşlemler → tamamlanan işlemi aç. İşlem özeti ve adımları göster. Üstteki ayar simgesinden ret/süre doldurma senaryolarını tanıt.
+- 1:00–1:20: Müşteri → İşlemler. Adresi, şematik yol bilgisini ve kalan süreyi göster. “Mağazadayım, kodu göster” ile QR ve kısa kodu aç.
+- 1:20–1:40: İşletmeye geç; “Bekleyen talepler” ve “Aktif rezervasyonlar” ayrımını göster. Kodu yapıştırıp doğrula; ardından “Teslimi tamamla”. Kapasite 2.500, ayrılan 0 TL olur.
+- 1:40–2:00: Müşteri → İşlemler → teslim beyanı ve “Nakdi alamadım / sorun bildir” yolunu göster. Ayrı finansal simülasyonda mağazaya aktarım ve kazanç varsayımlarının henüz kararlaştırılmadığını anlat.
 
 ## Geliştirme ve test
 Node.js 20 veya üstü. Proje kökünde:
@@ -34,7 +34,7 @@ npx vite preview --config vite.mentor.config.ts --port 4174
 
 Geliştirme sunucusunda çevrimdışı kurulum test edilmez; `build:mentor` çıktısını preview ile açın. Yayına alınacak dosyalar `mobil-demo/` klasörüne üretilir; GitHub Pages mevcut main/root yayınıyla bu klasörü sunar. Ana siteyi yeniden build etmek gerekmez.
 
-13 otomatik test: başarı, ayrı doğrulama, tek debit, ret gerekçesi, 2 dakika sınırı, onaydan önce/sonra/doğrulama sonrası iptal, rezervasyon expiry, işletme iptali, yanlış/başka mağaza/kullanılmış kod, yetersiz kapasite, kapasite alt sınırı, hizmet kapatma, tek aktif talep ve tutar doğrulama, JSON yenileme, senaryo kontrolleri, çift kabul. Koşu: 13/13 geçti.
+14 otomatik test: başarı, ayrı doğrulama, tek debit, ret gerekçesi, 2 dakika sınırı, onaydan önce/sonra/doğrulama sonrası iptal, rezervasyon expiry, işletme iptali, yanlış/başka mağaza/kullanılmış kod, yetersiz kapasite, kapasite alt sınırı, hizmet kapatma, tek aktif talep ve tutar doğrulama, JSON yenileme, senaryo kontrolleri, çift kabul, mağazaya varış kod kapısı ve ayrı müşteri itirazı. Son koşu: 14/14 geçti.
 
 Tarayıcı kontrolü: başarılı akış, kullanılan kodun reddi, ret, pending timeout, rezervasyon expiry, yetersiz kapasite, müşteri iptali, harita seçimi, yenilemede kod/süre korunması; 320/375/414/768 px ana sayfa/işlemler/profil taşma kontrolü. Yerel sunucu kapatılarak cache üzerinden yeniden açılış ve başarı akışı doğrulandı.
 

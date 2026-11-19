@@ -91,6 +91,8 @@ function App() {
   const [online, setOnline] = useState(navigator.onLine);
   const [install, setInstall] = useState<any>(null);
   const [cached, setCached] = useState(false);
+  const [disputeReason, setDisputeReason] = useState("");
+  const [routeFor, setRouteFor] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [page, selection, role, data.started]);
@@ -140,6 +142,7 @@ function App() {
   }
   function switchRole(next: "customer" | "store") {
     setRole(next);
+    if (page === "finance") setPage("home");
     setError("");
     setNotice("");
     setSelection(null);
@@ -255,13 +258,50 @@ function App() {
         <h1>{labels[r.status]}</h1>
         <p className="muted">
           {r.status === "PENDING"
-            ? "Mağaza onaylamadan yola çıkma. Bu işlem yalnızca demodur."
+            ? "Mağaza onaylamadan yola çıkma."
             : r.status === "RESERVED"
-              ? "Kodu yalnızca mağazada, görevli teslim adımına hazır olduğunda göster."
+              ? "Ayrılan tutar için mağazaya ulaş. Kodu orada, görevli hazır olduğunda göster."
               : r.status === "VERIFIED"
                 ? "Kod kontrol edildi. İşletme ekranındaki ayrı teslim onayı bekleniyor."
-                : r.reason || "İşlemin durumu aşağıdaki özette kayıtlı."}
+                : r.status === "COMPLETED"
+                  ? "İşletme teslimi tamamladığını bildirdi. Nakdi almadıysan aşağıdan sorun bildir."
+                  : r.reason || "İşlemin durumu aşağıdaki özette kayıtlı."}
         </p>
+        {r.status === "RESERVED" && (
+          <div className="arrival-card">
+            <p className="eyebrow">ÖNCE MAĞAZAYA ULAŞ</p>
+            <strong>
+              {s.name} · {s.area}
+            </strong>
+            <p>{s.address}</p>
+            <div className="timer">
+              <Clock3 size={18} />
+              <span>Rezervasyon için kalan</span>
+              <strong>{remaining(r)}</strong>
+            </div>
+            <button
+              className="secondary wide"
+              onClick={() => setRouteFor(!routeFor)}
+            >
+              <MapPin size={18} />{" "}
+              {routeFor ? "Yol bilgisini gizle" : "Yol tarifini göster"}
+            </button>
+            {routeFor && (
+              <p className="route-note">
+                Şematik yön: Ankara merkez → {s.area} → {s.name}. Adres ve
+                mesafe temsili olduğu için gerçek navigasyon başlatılmaz.
+              </p>
+            )}
+            {!r.arrived && (
+              <button
+                className="primary wide"
+                onClick={() => act({ type: "arrive", id: r.id })}
+              >
+                Mağazadayım, kodu göster <ArrowUpRight size={18} />
+              </button>
+            )}
+          </div>
+        )}
         <div className="receipt">
           <div className="line">
             <strong>{s.name}</strong>
@@ -279,38 +319,40 @@ function App() {
               <strong>{remaining(r)}</strong>
             </div>
           )}
-          {qr && ["RESERVED", "VERIFIED"].includes(r.status) && (
-            <div className="code-block">
-              <img
-                src={qr}
-                alt="Rastgele demo işlem tanımlayıcısını içeren QR"
-              />
-              <label>Kısa işlem kodu</label>
-              <strong className="delivery-code">
-                {r.code.slice(0, 4)} {r.code.slice(4)}
-              </strong>
-              <button
-                className="text-button"
-                onClick={() =>
-                  navigator.clipboard
-                    ?.writeText(r.code)
-                    .then(() => setNotice("Kod kopyalandı."))
-                    .catch(() =>
-                      setError("Kopyalanamadı; kodu elle girebilirsin."),
-                    )
-                }
-              >
-                Kodu kopyala
-              </button>
-            </div>
-          )}
+          {qr &&
+            (r.arrived || r.status === "VERIFIED") &&
+            ["RESERVED", "VERIFIED"].includes(r.status) && (
+              <div className="code-block">
+                <img
+                  src={qr}
+                  alt="Rastgele demo işlem tanımlayıcısını içeren QR"
+                />
+                <label>Kısa işlem kodu</label>
+                <strong className="delivery-code">
+                  {r.code.slice(0, 4)} {r.code.slice(4)}
+                </strong>
+                <button
+                  className="text-button"
+                  onClick={() =>
+                    navigator.clipboard
+                      ?.writeText(r.code)
+                      .then(() => setNotice("Kod kopyalandı."))
+                      .catch(() =>
+                        setError("Kopyalanamadı; kodu elle girebilirsin."),
+                      )
+                  }
+                >
+                  Kodu kopyala
+                </button>
+              </div>
+            )}
           <dl>
             <div>
-              <dt>Demo hizmet bedeli</dt>
-              <dd>0 TL</dd>
+              <dt>Hizmet bedeli</dt>
+              <dd>Henüz belirlenmedi</dd>
             </div>
             <div>
-              <dt>Örnek toplam</dt>
+              <dt>Talep tutarı</dt>
               <dd>{money(r.amount)}</dd>
             </div>
             <div>
@@ -341,10 +383,54 @@ function App() {
             )}
           </dl>
           <p className="small muted">
-            Bu örnek özet banka dekontu veya fatura değildir. Gerçek
-            fiyatlandırma henüz belirlenmedi.
+            İşlem özeti; banka dekontu veya fatura değildir.
           </p>
         </div>
+        {r.status === "COMPLETED" && (
+          <button
+            className="secondary wide finance-link"
+            onClick={() => setPage("finance")}
+          >
+            Önerilen finansal akış — simülasyon <ArrowUpRight size={18} />
+          </button>
+        )}
+        {r.status === "COMPLETED" && (
+          <div className="dispute-card">
+            <strong>
+              {r.dispute ? "Sorun bildirildi" : "Nakdi alamadın mı?"}
+            </strong>
+            <p>
+              {r.dispute
+                ? `Bildirim: ${r.dispute.reason}`
+                : "İşletmenin teslim beyanına itirazını ayrı kaydederiz. Bu kayıt işlemi kendiliğinden geri çevirmez."}
+            </p>
+            {!r.dispute && (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (act({ type: "dispute", id: r.id, reason: disputeReason }))
+                    setDisputeReason("");
+                }}
+              >
+                <label className="field">
+                  Sorunu kısaca anlat
+                  <textarea
+                    aria-label="Sorun açıklaması"
+                    value={disputeReason}
+                    onChange={(e) => setDisputeReason(e.target.value)}
+                    minLength={5}
+                    maxLength={300}
+                    required
+                    placeholder="Örn. Görevli nakit teslim etmedi"
+                  />
+                </label>
+                <button className="secondary wide danger" type="submit">
+                  Nakdi alamadım / sorun bildir
+                </button>
+              </form>
+            )}
+          </div>
+        )}
         {active(r) ? (
           <>
             <button
@@ -368,7 +454,7 @@ function App() {
               setPage("home");
             }}
           >
-            Yeni bir deneme yap <ArrowUpRight size={18} />
+            Yeni talep oluştur <ArrowUpRight size={18} />
           </button>
         )}
         <details className="event-log">
@@ -388,7 +474,7 @@ function App() {
       <div className="demo-banner">Demo — gerçek para işlemi yapılmaz</div>
       <header>
         <img src="/mobil-demo/logo.png" alt="nexivo" />
-        <span className="header-tag">SUNUM PROTOTİPİ</span>
+        <span className="header-tag">NEXIVO</span>
         <button
           className="icon-button"
           aria-label="Sunum kontrolleri"
@@ -479,19 +565,15 @@ function App() {
         </div>
       )}
       <main>
-        {!data.started && page !== "profile" ? (
+        {!data.started && page !== "profile" && page !== "finance" ? (
           <section className="welcome">
-            <p className="eyebrow">YAKININDAKİ BİR NOKTADAN BAŞLAR.</p>
+            <p className="eyebrow">MAĞAZADAN NAKİT</p>
             <h1>
-              Nakit ihtiyacın.
-              <br />
-              Bir mağaza.
-              <br />
-              <em>Ortak bir onay.</em>
+              Yakınındaki mağazadan <em>nakit al.</em>
             </h1>
             <p>
-              Talebini gönder, mağazanın onayını bekle, kodunla denemeyi
-              tamamla.
+              Tutarını seç, mağazanın onayını bekle, ayrılan nakdi kodunla
+              teslim al.
             </p>
             <div className="welcome-art">
               <Store size={54} strokeWidth={1.3} />
@@ -506,10 +588,7 @@ function App() {
             </div>
             <div className="info">
               <ShieldCheck size={20} />
-              <p>
-                Kurgusal kullanıcıyla başlarsın. Banka, kart veya kimlik bilgisi
-                gerekmez. Gerçek nakit teslimi yapılmaz.
-              </p>
+              <p>Banka, kart veya kimlik bilgisi gerekmez.</p>
             </div>
             <button
               className="primary wide"
@@ -517,17 +596,67 @@ function App() {
             >
               Demoyu başlat <ArrowUpRight size={20} />
             </button>
+            <p className="small muted">Tek cihazda iki rol arasında geçiş</p>
+          </section>
+        ) : page === "finance" ? (
+          <section className="finance-view">
+            <button className="text-button" onClick={() => setPage("home")}>
+              <ArrowLeft size={17} /> Geri dön
+            </button>
+            <p className="eyebrow">ÖNERİLEN FİNANSAL AKIŞ — SİMÜLASYON</p>
+            <h1>Paranın yolu nasıl olabilir?</h1>
+            <p className="muted">
+              Bu ekran gelecekte değerlendirilecek bir olasılığı anlatır. Ödeme
+              kaynağı, finansal ortak, mağaza aktarımı ve kazanç modeli henüz
+              kararlaştırılmadı.
+            </p>
+            <ol className="instructions">
+              <li>Müşteri 500 TL talep eder; mağaza rezervasyon ayırır.</li>
+              <li>
+                Gelecekteki finansal modelde ödeme kaynağı ve yetkili ortak
+                belirlenir.
+              </li>
+              <li>
+                Mağaza teslim beyanında bulunur; müşteri sorun bildirebilir.
+              </li>
+              <li>
+                Mağazaya aktarım ancak kurulacak gerçek modelin koşullarına göre
+                tasarlanabilir.
+              </li>
+            </ol>
+            <div className="finance-card">
+              <strong>500 TL'lik varsayımsal işlem</strong>
+              <dl>
+                <div>
+                  <dt>Verilen nakit</dt>
+                  <dd>500 TL</dd>
+                </div>
+                <div>
+                  <dt>Hesaba aktarılacak tutar</dt>
+                  <dd>500 TL varsayımı</dd>
+                </div>
+                <div>
+                  <dt>İşlem kazancı</dt>
+                  <dd>Henüz belirlenmedi</dd>
+                </div>
+                <div>
+                  <dt>Aktarım durumu</dt>
+                  <dd>Aktarım yapılmadı</dd>
+                </div>
+              </dl>
+            </div>
             <p className="small muted">
-              Tek cihaz · Ücretsiz sunum · İki rol arasında geçiş
+              Bu tutarlar finansal taahhüt değildir. Bu uygulama ödeme, transfer
+              veya gerçek nakit teslimi yapmaz.
             </p>
           </section>
         ) : role === "store" ? (
           <section>
-            <p className="eyebrow">İŞLETME DEMOSU</p>
+            <p className="eyebrow">İŞLETME</p>
             <h1>Kontrol sende.</h1>
-            <p className="muted">Bu görünümde kurgusal mağaza görevlisisin.</p>
+            <p className="muted">Talepleri ve ayrılan tutarı buradan yönet.</p>
             <label className="field">
-              Demo mağazan
+              Mağazan
               <select
                 value={shopId}
                 onChange={(e) => setShopId(e.target.value)}
@@ -612,8 +741,14 @@ function App() {
                 bakiyesi değildir.
               </p>
             </div>
+            <button
+              className="secondary wide finance-link"
+              onClick={() => setPage("finance")}
+            >
+              Önerilen finansal akış — simülasyon <ArrowUpRight size={18} />
+            </button>
             <h2>
-              Gelen talepler{" "}
+              Bekleyen talepler{" "}
               <span className="count">
                 {
                   data.requests.filter(
@@ -622,10 +757,12 @@ function App() {
                 }
               </span>
             </h2>
-            {!data.requests.some((r) => r.storeId === shop.id && active(r)) && (
+            {!data.requests.some(
+              (r) => r.storeId === shop.id && r.status === "PENDING",
+            ) && (
               <div className="empty">
                 <ReceiptText />
-                <strong>Aktif talep yok</strong>
+                <strong>Bekleyen talep yok</strong>
                 <p>Müşteri görünümünden bu mağazaya talep gönder.</p>
                 <button
                   className="text-button"
@@ -636,7 +773,7 @@ function App() {
               </div>
             )}
             {data.requests
-              .filter((r) => r.storeId === shop.id && active(r))
+              .filter((r) => r.storeId === shop.id && r.status === "PENDING")
               .map((r) => (
                 <article className="store-request" key={r.id}>
                   <div className="line">
@@ -647,66 +784,94 @@ function App() {
                   <p className="small muted">
                     NX-{r.id.slice(0, 8).toUpperCase()} · {time(r.created)}
                   </p>
-                  {r.status === "PENDING" ? (
-                    <>
-                      <p className="info-text">
-                        Kabul ederek bu demo tutarını 10 dakika ayırabileceğini
-                        onaylarsın.
-                      </p>
-                      <button
-                        className="primary wide"
-                        onClick={() => act({ type: "accept", id: r.id })}
-                      >
-                        10 dakika ayır ve kabul et
-                      </button>
-                      <label className="field">
-                        Ret gerekçesi
-                        <select
-                          value={reason}
-                          onChange={(e) => setReason(e.target.value)}
-                        >
-                          <option>Yeterli nakit yok</option>
-                          <option>Şu anda hizmet veremiyoruz</option>
-                        </select>
-                      </label>
-                      <button
-                        className="secondary wide"
-                        onClick={() =>
-                          act({ type: "reject", id: r.id, reason })
-                        }
-                      >
-                        Talebi reddet
-                      </button>
-                    </>
+                  <p className="info-text">
+                    Kabul ederek bu demo tutarını 10 dakika ayırabileceğini
+                    onaylarsın.
+                  </p>
+                  <button
+                    className="primary wide"
+                    onClick={() => act({ type: "accept", id: r.id })}
+                  >
+                    10 dakika ayır ve kabul et
+                  </button>
+                  <label className="field">
+                    Ret gerekçesi
+                    <select
+                      value={reason}
+                      onChange={(e) => setReason(e.target.value)}
+                    >
+                      <option>Yeterli nakit yok</option>
+                      <option>Şu anda hizmet veremiyoruz</option>
+                    </select>
+                  </label>
+                  <button
+                    className="secondary wide"
+                    onClick={() => act({ type: "reject", id: r.id, reason })}
+                  >
+                    Talebi reddet
+                  </button>
+                </article>
+              ))}
+            <h2>
+              Aktif rezervasyonlar{" "}
+              <span className="count">
+                {
+                  data.requests.filter(
+                    (r) =>
+                      r.storeId === shop.id &&
+                      ["RESERVED", "VERIFIED"].includes(r.status),
+                  ).length
+                }
+              </span>
+            </h2>
+            {!data.requests.some(
+              (r) =>
+                r.storeId === shop.id &&
+                ["RESERVED", "VERIFIED"].includes(r.status),
+            ) && <p className="muted small">Şu anda ayrılmış tutar yok.</p>}
+            {data.requests
+              .filter(
+                (r) =>
+                  r.storeId === shop.id &&
+                  ["RESERVED", "VERIFIED"].includes(r.status),
+              )
+              .map((r) => (
+                <article className="store-request" key={r.id}>
+                  <div className="line">
+                    <span className="pill">
+                      {r.status === "VERIFIED"
+                        ? "Kod doğrulandı"
+                        : "Aktif rezervasyon"}
+                    </span>
+                    <strong>{remaining(r)}</strong>
+                  </div>
+                  <h2>{money(r.amount)} ayırdınız</h2>
+                  <p className="small muted">
+                    NX-{r.id.slice(0, 8).toUpperCase()} · Bitiş:{" "}
+                    {time(r.deadline)}
+                  </p>
+                  {r.status === "VERIFIED" ? (
+                    <button
+                      className="primary wide"
+                      onClick={() => act({ type: "complete", id: r.id })}
+                    >
+                      Teslimi tamamla <Check size={18} />
+                    </button>
                   ) : (
-                    <>
-                      <p className="small muted">
-                        Rezervasyon bitişi: {time(r.deadline)}
-                      </p>
-                      {r.status === "RESERVED" ? (
-                        <p>Kod doğrulamak için aşağıdaki alanı kullan.</p>
-                      ) : (
-                        <button
-                          className="primary wide"
-                          onClick={() => act({ type: "complete", id: r.id })}
-                        >
-                          Demo nakit teslimini tamamla <Check size={18} />
-                        </button>
-                      )}
-                      <button
-                        className="text-button danger"
-                        onClick={() =>
-                          act({
-                            type: "storeCancel",
-                            id: r.id,
-                            reason: "Şu anda hizmet veremiyoruz",
-                          })
-                        }
-                      >
-                        Rezervasyonu karşılayamıyorum
-                      </button>
-                    </>
+                    <p>Kod doğrulamak için aşağıdaki alanı kullan.</p>
                   )}
+                  <button
+                    className="text-button danger"
+                    onClick={() =>
+                      act({
+                        type: "storeCancel",
+                        id: r.id,
+                        reason: "Şu anda hizmet veremiyoruz",
+                      })
+                    }
+                  >
+                    Rezervasyonu karşılayamıyorum
+                  </button>
                 </article>
               ))}
             <section className="verify">
@@ -748,8 +913,24 @@ function App() {
               .map((r) => (
                 <div className="history-row" key={r.id}>
                   <div>
-                    <strong>{labels[r.status]}</strong>
+                    <strong>
+                      {r.status === "COMPLETED"
+                        ? "İşletme teslim beyanı"
+                        : labels[r.status]}
+                    </strong>
                     <small>{time(r.ended)}</small>
+                    {r.status === "COMPLETED" && (
+                      <small>
+                        Verilen nakit: {money(r.amount)} · Hesaba aktarılacak
+                        tutar: varsayımsal {money(r.amount)} · İşlem kazancı:
+                        belirlenmedi · Aktarım durumu: yapılmadı
+                      </small>
+                    )}
+                    {r.dispute && (
+                      <small className="danger">
+                        Müşteri itirazı: {r.dispute.reason}
+                      </small>
+                    )}
                   </div>
                   <b>{money(r.amount)}</b>
                 </div>
@@ -806,6 +987,12 @@ function App() {
               </li>
             </ol>
             <h2>Bu demo nasıl çalışır?</h2>
+            <button
+              className="secondary wide"
+              onClick={() => setPage("finance")}
+            >
+              Önerilen finansal akış — simülasyon <ArrowUpRight size={18} />
+            </button>
             <p className="muted">
               Müşteri ve işletme aynı cihazdaki kayıtları kullanır. Cihazlar
               arasında eşzamanlama yoktur. Tutarlar, mesafeler, adresler ve
@@ -910,11 +1097,11 @@ function App() {
                         <dd>{money(Number(amount) * 100)}</dd>
                       </div>
                       <div>
-                        <dt>Demo hizmet bedeli</dt>
-                        <dd>0 TL</dd>
+                        <dt>Hizmet bedeli</dt>
+                        <dd>Henüz belirlenmedi</dd>
                       </div>
                       <div className="total">
-                        <dt>Örnek toplam</dt>
+                        <dt>Talep tutarı</dt>
                         <dd>{money(Number(amount) * 100)}</dd>
                       </div>
                     </dl>
@@ -941,7 +1128,7 @@ function App() {
                       })
                     }
                   >
-                    Demo talebini gönder <ArrowUpRight size={19} />
+                    Talep gönder <ArrowUpRight size={19} />
                   </button>
                   {current && (
                     <button

@@ -32,6 +32,8 @@ export type Request = {
   code: string;
   token: string;
   reason?: string;
+  arrived?: boolean;
+  dispute?: { at: number; reason: string };
   events: { at: number; text: string }[];
 };
 export type State = {
@@ -136,6 +138,8 @@ export type Action =
       reason?: string;
     }
   | { type: "verify"; storeId: string; code: string }
+  | { type: "arrive"; id: string }
+  | { type: "dispute"; id: string; reason: string }
   | { type: "configure"; storeId: string; capacity: number; open: boolean };
 export function transition(
   input: State,
@@ -211,6 +215,7 @@ export function transition(
     if (r.storeId !== action.storeId) fail("Bu kod başka mağazaya ait.");
     if (r.status !== "RESERVED")
       fail("Kod kullanılmış, iptal edilmiş veya süresi dolmuş.");
+    if (!r.arrived) fail("Müşteri mağazaya varıp kodunu göstermeli.");
     r.verified = now;
     event(
       r,
@@ -220,10 +225,36 @@ export function transition(
     );
     return s;
   }
+  if (action.type === "dispute") {
+    const r =
+      s.requests.find((x) => x.id === action.id) || fail("Talep bulunamadı.");
+    if (r.status !== "COMPLETED")
+      fail("Yalnızca teslim beyanından sonra sorun bildirilebilir.");
+    if (r.dispute) fail("Bu işlem için sorun zaten bildirildi.");
+    const reason = action.reason.trim();
+    if (reason.length < 5 || reason.length > 300)
+      fail("Sorunu 5–300 karakterle açıkla.");
+    r.dispute = { at: now, reason };
+    r.events.push({
+      at: now,
+      text: `Müşteri teslim beyanına itiraz etti: ${reason}`,
+    });
+    return s;
+  }
   const r =
     s.requests.find((x) => x.id === action.id) || fail("Talep bulunamadı.");
   const shop = s.stores.find((x) => x.id === r.storeId)!;
   if (!active(r)) fail("Bu işlem kapanmış; yeniden değiştirilemez.");
+  if (action.type === "arrive") {
+    if (r.status !== "RESERVED" || r.arrived)
+      fail("Mağazaya varış bu aşamada işaretlenemez.");
+    r.arrived = true;
+    r.events.push({
+      at: now,
+      text: "Müşteri mağazada olduğunu belirtti; kod gösterilebilir.",
+    });
+    return s;
+  }
   if (action.type === "accept") {
     if (r.status !== "PENDING") fail("Yalnızca bekleyen talep onaylanabilir.");
     if (!shop.open) fail("Hizmet kapalı. Önce hizmeti aç.");

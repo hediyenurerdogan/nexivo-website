@@ -21,7 +21,9 @@ function accept(s: State, t = start + 1000) {
 }
 function verify(s: State) {
   return transition(
-    s,
+    s.requests[0].status === "RESERVED" && !s.requests[0].arrived
+      ? transition(s, { type: "arrive", id: s.requests[0].id }, start + 1500)
+      : s,
     {
       type: "verify",
       storeId: s.requests[0].storeId,
@@ -145,11 +147,60 @@ test("invalid and other-store codes fail; code cannot verify twice", () => {
   assert.throws(() => verify(v), /kullanılmış/);
   assert.equal(
     transition(
-      s,
+      transition(s, { type: "arrive", id: s.requests[0].id }, start + 1500),
       { type: "verify", storeId: "a", code: s.requests[0].token },
       start + 2000,
     ).requests[0].status,
     "VERIFIED",
+  );
+});
+test("arrival gates code, and customer dispute remains separate from delivery assertion", () => {
+  const s = accept(request());
+  assert.throws(
+    () =>
+      transition(
+        s,
+        { type: "verify", storeId: "a", code: s.requests[0].code },
+        start + 2000,
+      ),
+    /mağazaya varıp/,
+  );
+  const arrived = transition(
+    s,
+    { type: "arrive", id: s.requests[0].id },
+    start + 1500,
+  );
+  assert.throws(
+    () =>
+      transition(
+        arrived,
+        { type: "arrive", id: s.requests[0].id },
+        start + 1600,
+      ),
+    /işaretlenemez/,
+  );
+  const completed = transition(
+    verify(arrived),
+    { type: "complete", id: s.requests[0].id },
+    start + 3000,
+  );
+  const disputed = transition(
+    completed,
+    { type: "dispute", id: s.requests[0].id, reason: "Nakit teslim edilmedi" },
+    start + 4000,
+  );
+  assert.equal(disputed.requests[0].status, "COMPLETED");
+  assert.equal(disputed.requests[0].dispute?.reason, "Nakit teslim edilmedi");
+  assert.equal(disputed.stores[0].capacity, 200000);
+  assert.match(disputed.requests[0].events.at(-1)?.text || "", /itiraz etti/);
+  assert.throws(
+    () =>
+      transition(
+        disputed,
+        { type: "dispute", id: s.requests[0].id, reason: "Yine olmadı" },
+        start + 5000,
+      ),
+    /zaten/,
   );
 });
 test("insufficient capacity blocks acceptance with no side effect", () => {
