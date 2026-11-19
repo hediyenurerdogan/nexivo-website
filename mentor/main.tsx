@@ -297,7 +297,9 @@ function App() {
               : r.status === "VERIFIED"
                 ? "Kod kontrol edildi. İşletme ekranındaki ayrı teslim onayı bekleniyor."
                 : r.status === "COMPLETED"
-                  ? "İşletme teslimi tamamladığını bildirdi. Nakdi almadıysan aşağıdan sorun bildir."
+                  ? r.dispute
+                    ? "İtirazın kaydedildi; ayrıntılarını aşağıda görebilirsin."
+                    : "İşletme teslimi tamamladığını bildirdi. Nakdi almadıysan aşağıdan sorun bildir."
                   : r.reason || "İşlemin durumu aşağıdaki özette kayıtlı."}
         </p>
         {r.status === "RESERVED" && (
@@ -469,9 +471,7 @@ function App() {
             </p>
             {r.dispute && (
               <p className="small muted">
-                Sonraki adım: Mentör sunumunda bu kaydı işletmenin teslim
-                beyanıyla birlikte inceleyin. Bu prototipte otomatik çözüm veya
-                destek takibi yoktur.
+                İtiraz kaydedildi. Bu demoda destek süreci canlandırılmıyor.
               </p>
             )}
             {!r.dispute && (
@@ -574,6 +574,12 @@ function App() {
             </button>
           </div>
           <p>Bu düğmeler işletme yanıtını ve süreyi bu cihazda canlandırır.</p>
+          {data.requests.some((r) => r.dispute) && (
+            <p>
+              Mentör notu: Açık itirazı işletmenin teslim beyanıyla birlikte
+              inceleyin. Bu prototipte otomatik çözüm veya destek takibi yoktur.
+            </p>
+          )}
           <div className="role-switch" aria-label="Demo görünümü">
             <button
               aria-pressed={role === "customer"}
@@ -1319,9 +1325,9 @@ function App() {
                 <span className="map-park">Örnek yeşil alan</span>
                 {data.stores.map((s, i) => (
                   <button
-                    className={`map-pin pin-${i}`}
+                    className={`map-pin pin-${i} ${s.open ? "" : "map-pin-closed"}`}
                     key={s.id}
-                    aria-label={`${s.name} detayını aç`}
+                    aria-label={`${s.name} · ${s.open ? "Talep kabul ediyor" : "Nakit hizmeti kapalı"} · detayını aç`}
                     onClick={() =>
                       valid
                         ? setSelection(s.id)
@@ -1329,39 +1335,48 @@ function App() {
                     }
                   >
                     <Store size={18} />
-                    <span>{s.area}</span>
+                    <span>
+                      {s.area}
+                      {!s.open && <small>Nakit hizmeti kapalı</small>}
+                    </span>
                   </button>
                 ))}
                 <small>Örnek yerleşim · Navigasyon için kullanma</small>
               </div>
             )}
-            {!map && <div className="shops">
-              {data.stores.map((s) => (
-                <button
-                  key={s.id}
-                  className="shop-card"
-                  disabled={!valid}
-                  onClick={() => setSelection(s.id)}
-                >
-                  <div className="shop-avatar">
-                    <Store size={24} />
-                  </div>
-                  <div className="shop-copy">
-                    <span className="pill">Demo noktası</span>
-                    <h3>{s.name}</h3>
-                    <p>
-                      {s.area} · {s.distance} (örnek)
-                    </p>
-                    <p>{s.hours} · Kurgusal hizmet saatleri</p>
-                    <span className={`availability ${s.open ? "" : "closed"}`}>
-                      {s.open ? "Talep kabul ediyor" : "Şu an hizmet vermiyor"}
-                    </span>
-                    <small>Son demo bildirimi: {time(s.updated)}</small>
-                  </div>
-                  <ChevronRight size={18} />
-                </button>
-              ))}
-            </div>}
+            {!map && (
+              <div className="shops">
+                {data.stores.map((s) => (
+                  <button
+                    key={s.id}
+                    className="shop-card"
+                    disabled={!valid}
+                    onClick={() => setSelection(s.id)}
+                  >
+                    <div className="shop-avatar">
+                      <Store size={24} />
+                    </div>
+                    <div className="shop-copy">
+                      <span className="pill">Demo noktası</span>
+                      <h3>{s.name}</h3>
+                      <p>
+                        {s.area} · {s.distance} (örnek)
+                      </p>
+                      <p>Hizmet saatleri: {s.hours}</p>
+                      <span
+                        className={`availability ${s.open ? "" : "closed"}`}
+                      >
+                        {s.open
+                          ? "Talep kabul ediyor"
+                          : "Şu an hizmet vermiyor"}
+                      </span>
+                      <small>Son demo bildirimi: {time(s.updated)}</small>
+                    </div>
+                    <ChevronRight size={18} />
+                  </button>
+                ))}
+              </div>
+            )}
           </section>
         )}
       </main>
