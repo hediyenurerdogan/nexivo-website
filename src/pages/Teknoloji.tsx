@@ -38,6 +38,6 @@ export default function Teknoloji() {
         {questions.map(([question, answer]) => <details key={question} className="faq-item group"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 md:px-7 text-white font-semibold"><span>{question}</span><ChevronDown className="shrink-0 text-accent-green group-open:rotate-180" size={22} /></summary><p className="px-5 pb-6 md:px-7 text-[#a1a1aa] leading-relaxed">{answer}</p></details>)}
       </div>
     </section>
-    <div className="plan-card flex flex-wrap items-center justify-between gap-6"><div><QrCode className="text-accent-green mb-3" size={28} /><h2>Akışı kendiniz görün.</h2><p>Örnek mağazalarla çalışan demoya geçin.</p></div><a className="hero-primary-action" href="https://demo.nexivotr.com/">Demoyu dene</a></div>
+    <div className="plan-card flex flex-wrap items-center justify-between gap-6"><div><QrCode className="text-accent-green mb-3" size={28} /><h2>Akışı kendiniz görün.</h2><p>Örnek mağazalarla çalışan demoya geçin.</p></div><a className="hero-primary-action" href="/mobil-demo/">Demoyu dene</a></div>
   </div></div>;
 }

@@ -8,7 +8,7 @@ export default function Home() {
         <p className="eyebrow"><span /> MAĞAZADAN NAKİT · ÜRÜN DEMOSU</p>
         <h1>Önce talep.<br />Sonra onay.<br /><span>Her adım net.</span></h1>
         <p className="intro">Nakit alma fikrini mahallenin mağazalarıyla yeniden düşünelim. Talebini ilet, mağazanın yanıtını gör, süreli rezervasyonunu takip et.</p>
-        <div className="action-row"><a className="button primary" href="https://demo.nexivotr.com/">Demoyu dene <ArrowUpRight size={21} /></a><Link className="text-link" to="/nasil-calisir">Nasıl çalışır? <ArrowRight size={18} /></Link></div>
+        <div className="action-row"><a className="button primary" href="/mobil-demo/">Demoyu dene <ArrowUpRight size={21} /></a><Link className="text-link" to="/nasil-calisir">Nasıl çalışır? <ArrowRight size={18} /></Link></div>
         <p className="small-note"><ShieldCheck size={17} /> Gerçek para, banka hesabı veya kart bilgisi kullanılmaz.</p>
       </div>
       <div className="journey-visual" aria-label="Örnek demo akışı">

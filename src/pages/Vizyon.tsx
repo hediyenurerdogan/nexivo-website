@@ -58,6 +58,6 @@ export default function Vizyon() {
       <ol className="flow-list">{roadmap.map(([title, text], i) => <li key={title}><span className="flow-number">{String(i + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
     </section>
     <section className="mb-16 plan-card"><h2>Başarıyı nasıl ölçeceğiz?</h2><p className="mb-5">Demo yönetiminde yalnızca kaydedilmiş işlemlerin sayıları gösterilir. Bir akışın tamamlanması, gerçek nakit teslimini veya ticari talebi kanıtlamaz.</p><ul className="grid md:grid-cols-2 gap-4 plan-list">{metrics.map(item => <li key={item}>{item}</li>)}</ul></section>
-    <section className="plan-card"><h2>Bugün gösterebildiğimiz şey</h2><p className="text-xl mb-6">“Bir müşterinin talebini mağazaya ulaştırabiliyoruz; mağaza süreli olarak kabul edebiliyor ve süreci takip edebiliyoruz.”</p><div className="flex flex-wrap gap-4"><a href="https://demo.nexivotr.com/" className="hero-primary-action">Demoyu dene</a><a href="#/iletisim" className="hero-secondary-action">Pilot fikrini konuşalım</a></div></section>
+    <section className="plan-card"><h2>Bugün gösterebildiğimiz şey</h2><p className="text-xl mb-6">“Bir müşterinin talebini mağazaya ulaştırabiliyoruz; mağaza süreli olarak kabul edebiliyor ve süreci takip edebiliyoruz.”</p><div className="flex flex-wrap gap-4"><a href="/mobil-demo/" className="hero-primary-action">Demoyu dene</a><a href="#/iletisim" className="hero-secondary-action">Pilot fikrini konuşalım</a></div></section>
   </div></div>;
 }
