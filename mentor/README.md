@@ -17,9 +17,9 @@ Bu sürüm ayrı `/mobil-demo/` yoludur. Ana sitenin index.html, assets, menüle
 - 0:00–0:20: “Demoyu başlat”, 500 TL seç. Ankara'daki kurgusal noktaları ve örnek haritayı göster.
 - 0:20–0:40: Demo Market A detayını aç. Hizmet bedelinin henüz belirlenmediğini ve rezervasyon öncesi uyarıyı göster. Talep gönder.
 - 0:40–1:00: Üstte İşletme demosu → “10 dakika ayır ve kabul et”. Kapasite 3.000, ayrılan 500, kullanılabilir 2.500 TL.
-- 1:00–1:20: Müşteri → İşlemler. Adresi, şematik yol bilgisini ve kalan süreyi göster. “Mağazadayım, kodu göster” ile QR ve kısa kodu aç.
+- 1:00–1:20: Müşteri → İşlemler. “500 TL senin için ayrıldı” mesajını, tek rezervasyon kartını ve örnek rotayı göster. “Mağazadayım, kodu göster” ile QR ve kısa kodu aç.
 - 1:20–1:40: İşletmeye geç; “Bekleyen talepler” ve “Aktif rezervasyonlar” ayrımını göster. Kodu yapıştırıp doğrula; ardından “Teslimi tamamla”. Kapasite 2.500, ayrılan 0 TL olur.
-- 1:40–2:00: Müşteri → İşlemler → teslim beyanı ve “Nakdi alamadım / sorun bildir” yolunu göster. Ayrı finansal simülasyonda mağazaya aktarım ve kazanç varsayımlarının henüz kararlaştırılmadığını anlat.
+- 1:40–2:00: Müşteri → İşlemler → teslim beyanı ve “Nakdi alamadım / sorun bildir” yolunu göster. “İtiraz açık” etiketini listede ve detayda doğrula. Üstteki sunum kontrollerinden finansal model taslağını aç; geri düğmesi işlem detayına döner.
 
 ## Geliştirme ve test
 Node.js 20 veya üstü. Proje kökünde:

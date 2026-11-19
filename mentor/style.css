@@ -109,14 +109,16 @@ header {
   border-bottom: 1px solid #e4eae5;
 }
 header img {
-  width: 116px;
-  height: 55px;
+  width: 98px;
+  height: 44px;
   object-fit: contain;
   clip-path: inset(0 2px);
 }
-.header-tag {
-  font-size: 8px;
-  letter-spacing: 1.4px;
+.header-location {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
   color: #637775;
   margin-left: auto;
 }
@@ -131,9 +133,27 @@ header img {
 }
 .role-switch {
   display: flex;
-  padding: 12px 22px;
+  padding: 8px 0 14px;
   gap: 6px;
   background: white;
+}
+.closed-explanation {
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff2e9;
+  color: #8a4027;
+  margin: 14px 0;
+  font-size: 13px;
+}
+.closed-explanation .secondary {
+  margin-top: 9px;
+}
+.customer-home .map-view {
+  margin: 10px 0;
+  height: 250px;
+}
+.customer-home .shops {
+  margin-top: 10px;
 }
 .role-switch > button {
   display: flex;
@@ -298,8 +318,9 @@ main {
   font-size: 12px;
   font-weight: 600;
 }
-.greeting > span > span {
+.greeting > span > svg {
   color: #c85d39;
+  vertical-align: middle;
 }
 .greeting small {
   display: flex;
@@ -1159,8 +1180,92 @@ dd {
   text-align: right;
   font-weight: 700;
 }
-.finance-link {
+.arrival-amount {
+  font-size: 34px;
+  font-weight: 750;
+  letter-spacing: -1px;
+  color: #103b40;
+}
+.arrival-card.receipt {
   margin: 18px 0;
+}
+.arrival-card .code-block {
+  border-top: 1px dashed #d6dfd0;
+  border-bottom: 0;
+}
+.route-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  background: #e7eee8;
+  border-radius: 12px;
+  padding: 12px 8px;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+.route-steps span,
+.route-steps strong {
+  padding: 5px 7px;
+  border-radius: 8px;
+  background: #fff;
+}
+.route-steps i {
+  width: 16px;
+  border-top: 2px dashed #67987f;
+}
+.dispute-status {
+  display: inline-flex;
+  background: #fff0df;
+  color: #7b3d15;
+  border: 1px solid #e9bb80;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 750;
+  margin: 0 auto 12px;
+}
+.dispute-chip {
+  display: inline-flex;
+  margin-top: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff0df;
+  color: #7b3d15;
+  border: 1px solid #e9bb80;
+  font-size: 10px;
+  font-weight: 750;
+}
+.customer-home > h1 {
+  margin: 5px 0 7px;
+  font-size: 31px;
+}
+.customer-home > p.muted {
+  font-size: 14px;
+  line-height: 1.45;
+}
+.customer-home .greeting {
+  margin-bottom: 12px;
+}
+.customer-home .amount-panel {
+  padding: 13px 15px;
+  margin: 14px 0 12px;
+}
+.customer-home .amount-input {
+  margin: 12px 2px 7px;
+}
+.customer-home .amount-input input {
+  font-size: 34px;
+}
+.customer-home .amount-panel .small {
+  font-size: 11px;
+}
+.customer-home .section-line {
+  margin: 15px 0 8px;
+}
+.customer-home .section-line + p.small {
+  font-size: 11px;
+  line-height: 1.4;
 }
 .dispute-card textarea {
   width: 100%;
