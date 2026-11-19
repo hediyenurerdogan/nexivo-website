@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["mentor/**/*.tsx", "mentor/model.ts"],
+  "exclude": ["mentor/tests"]
+}
